@@ -1,18 +1,133 @@
 <html ng-app>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title></title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/bootstrap-select.min.css">
+		<style type="text/css">
+			td {
+				text-align:center;
+			}
+			img.a {
+				height: 50px;
+				width: 50px;
+			}
+		</style>
 	</head>
 	<body>
-		{{ 'test' }}
-	
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<select class="selectpicker">
+						<option value="F">F</option>
+						<option value="E">E</option>
+						<option value="D">D</option>
+						<option value="C">C</option>
+						<option value="B">B</option>
+						<option value="A">A</option>
+						<option value="S">S</option>
+						<option value="SS">SS</option>
+						<option value="SS+">SS+</option>
+					</select>
+					<table class="table table-bordered">
+					</table>	
+				</div>
+			</div>
+		</div>
+
 		<script type="text/javascript" src="js/angular.min.js"> </script>
 		<script type="text/javascript" src="js/jquery-2.1.3.min.js"> </script>
 		<script type="text/javascript" src="js/bootstrap.min.js"> </script>
+		<script type="text/javascript" src="js/bootstrap-select.min.js"> </script>
+		<script type="text/javascript" src="js/i18n/defaults-zh_TW.min.js"> </script>
 		<script type="text/javascript">
 			$(function() {
 				console.log("init");
+
+				showdata(infodata("F"));
+				
+				$("select.selectpicker").change(function() {
+					var data = infodata($(this).val());
+					$("table.table").html("");
+					showdata(data);
+				});
+
+				function showdata(data) {
+					var RowOfJData = data.list.length;
+					var ColOfJData = 0;
+					var TableData = "<tr class='danger'><td>name</td><td>img</td><td>class</td><td>kind</td><td>previous</td><td>ues</td><td>s</td><td>a</td><td>d</td></tr>";
+					var img = "";
+					var img2 = "";
+					var img3 = "";
+					for (var i = 0; i < RowOfJData; i++) {
+						console.log(data.list[i]);
+						if((i+1)%2 != 0) {
+							TableData += "<tr>";
+						} else {
+							TableData += "<tr class=\"info\">";
+						}
+						img = "<img class='a' src='img/monster/" + data.list[i].img + ".png' alt='" + data.list[i].name + "' />";
+						img2 = "";
+						img3 = "";
+						
+						ColOfJData = data.list[i].previous.length;
+						for(var j=0; j<ColOfJData; j++) {
+							img2 += "<img class='a' src='img/monster/" + data.list[i].previous[j].img + ".png' alt='" + data.list[i].previous[j].name + "' />";
+							
+						}
+						ColOfJData = data.list[i].use.length;
+						for(var k=0; k<ColOfJData; k++) {
+							img3 += "<img class='a' src='img/item3/" + data.list[i].use[k].img + ".png' alt='" + data.list[i].use[k].name + "' />";
+						}
+						
+						TableData += "<td width='200px'>" + data.list[i].name + "</td>";
+						TableData += "<td>" + img + "</td>";
+						TableData += "<td>" + data.list[i].class + "</td>";
+						TableData += "<td>" + data.list[i].kind + "</td>";
+						TableData += "<td>" + img2 + "</td>";
+						TableData += "<td>" + img3 + "</td>";
+						TableData += "<td>" + data.list[i].s + "</td>";
+						TableData += "<td>" + data.list[i].a + "</td>";
+						TableData += "<td>" + data.list[i].d + "</td>";
+						TableData += "</tr>";
+					}
+					$("table.table").append(TableData);				
+				}
+				
+				function infodata(_class) {
+
+					var alldata = {"list":[{"name":"生まれ変わる者","img":"0001_F","class":"F","kind":"無","previous":"","use":[{"name":"転生の鍵","img":"0001"}],"s":"15","a":"4.5","d":"5"},
+								           {"name":"さなぎ","img":"0002_F","class":"F","kind":"獣","previous":"","use":[{"name":"幻獣の繭","img":""}],"s":"15.5","a":"4.5","d":"5.5"},
+								           {"name":"ケットシー","img":"0003_F","class":"F","kind":"魔","previous":[{"name":"生まれ変わる者","img":"0001_F"},{"name":"さなぎ","img":"0002_F"}],"use":[{"name":"旅立ちの剣","img":"0003"}],"s":"15","a":"6.2","d":"4.8"},
+								           {"name":"ゲド","img":"0004_F","class":"F","kind":"無","previous":[{"name":"生まれ変わる者","img":"0001_F"},{"name":"さなぎ","img":"0002_F"}],"use":[{"name":"悪魔の心","img":"0004"}],"s":"14","a":"4","d":"4.5"},
+								           {"name":"付喪神","img":"0005_F","class":"F","kind":"霊","previous":[{"name":"生まれ変わる者","img":"0001_F"},{"name":"さなぎ","img":"0002_F"}],"use":[{"name":"思い出の切れ端","img":"0005"}],"s":"18","a":"4.8","d":"5.2"},
+								           {"name":"幼竜","img":"0006_F","class":"F","kind":"龍","previous":[{"name":"生まれ変わる者","img":"0001_F"},{"name":"さなぎ","img":"0002_F"}],"use":[{"name":"ひときわ大きな卵","img":"0006"}],"s":"16","a":"6.5","d":"4.5"},
+								           {"name":"ウミウシ","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"オオカミ","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"案山子神","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"グレムリン","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"原始竜","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"狐物異","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"サボクサー","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"彷徨う精霊","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"スケルトン","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"ネコマタ","img":"","class":"E","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+								           {"name":"炎樹","img":"","class":"D","kind":"龍","s":"16","a":"6.5","d":"4.5"},
+									]};
+
+					if(_class == "all"){ return alldata; }
+					
+					var len = alldata.list.length;
+					var newdata = {"list":{}}, j = 0;
+					for(var i=0; i<len; i++) {
+						if(alldata.list[i].class == _class) {
+							newdata.list[j++] = alldata.list[i];
+						}
+					}
+					newdata.list.length = j;
+					return newdata;
+				}
 			});
 		</script>
 	</body>
