@@ -1,8 +1,56 @@
+<!--
+	genmono tools v2 beta | (c) 2015 | ∑(っ °Д °;)っ 20150125
+	author heroboy999 heroboy999@gmail.com
+	##################################################
+	##############################,,;#################
+	#############################;,,,;##t#############
+	############################,,,,,,,,;;############
+	############################,,,i,,,,,;;###########
+	###########;;,,;############,,:;j,,,,,,i##########
+	###########;,,,,,,,########i,:j:j::,,,,iit########
+	##########;,,,::::,,#######,,:.......::,,;;#######
+	###########,,,:...::########,,::::...:,,,,;#######
+	################:.################..:j,,,#########
+	################j.################...:,,,#########
+	#################i###############:..::,,,#########
+	################################:..####,,#########
+	#######;;,,####################.##################
+	#######,;:,###########f###########################
+	#######,:..##...####L#GDDDD#######################
+	#######::.....######DDGfLGDGf#####################
+	###,###..:;########LfLDGLDLfDD###########,,,,#####
+	#i;,,##..########fGLDGLfjfDGDGf##########,,,,t####
+	#;,,,..,#########GfffftffjffGfD########..:,ii#####
+	#;,,,..#########LGGfffjfjffffLDG##################
+	#t,jj..#######fffGLLffjtttjffLDGGG################
+	###:...########GfffLLffttttfffLGG############i####
+	###,:..########fftfGGfLjtjtffjfLL######..####;;###
+	##,,,..########jttjLLftjfjffttLLLf#######.:,,,,;##
+	#,,,,..#######ftjtLtffjtttfftjLLLf########.,,;,;##
+	#####:,#######jtffjfffffffffLLGDLLD########.:ii,;#
+	#####:;#######jtffffjffffffLLGGGGGGDL######..,,,;#
+	####,,#######DjtttttfffffLLGGGLLLLL########..,,i##
+	##;,:,########fttttfffffLLGGGGGLffG########..,,;t#
+	#i,,:.#########GfLGGffffLGGGGDGLLG#########::,,,;#
+	#i,,,.,##.######fD,fGfffLGGGG;Lt##########.,,,,,;#
+	##;,,:.#...#######fLjDLLLGGGjfL########..:,,,;####
+	##i,,,:....#########GGGGGGGG##########:.##########
+	###;,,,....#########################::############
+	####;,,:..########################,::#############
+	#####;,,:..####################;,,:.##############
+	#######,:..###################i,,:..##############
+	########,::.##################,,.::###############
+	###########::#################::.:################
+	############################..####################
+	###########################:.#####################
+	##################################################
+		
+-->
 <!DOCTYPE html>
 <html ng-app>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>genmono2 tools</title>
+		<title>genmono2 tools v2 beta</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/bootstrap-select.min.css">
@@ -29,6 +77,11 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-md-12">
+					<h4>∑(っ °Д °;)っ 這是幻獸物語2簡單工具, 基於 <a href='http://genmono2.wiki.fc2.com/'>genmono wiki</a> 而製作.</h4>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
 					<select class="selectpicker" id="class">
 						<option value="">請選擇(class)</option>
 						<option value="F">F</option>
@@ -40,10 +93,10 @@
 						<option value="S">S</option>
 						<option value="SS">SS</option>
 						<option value="SS+">SS+</option>
-					</select> or 
+					</select> <font color="#f00" size="4">or</font> 
 					<select class="selectpicker" id="evolution">
 						<option value="">請選擇(下位)</option>
-					</select> or 
+					</select> <font color="#f00" size="4">or</font> 
 					<select class="selectpicker" id="evolution2">
 						<option value="">請選擇(上位)</option>
 					</select>
@@ -60,12 +113,56 @@
 		<script type="text/javascript" src="js/i18n/defaults-zh_TW.min.js"> </script>
 		<script type="text/javascript">
 			$(function() {
-				console.log("init");
+				console.log("∑(っ °Д °;)っ init 幻獣の繭");
+				
+				console.log("##################################################");
+				console.log("##############################,,;#################");
+				console.log("#############################;,,,;##t#############");
+				console.log("############################,,,,,,,,;;############");
+				console.log("############################,,,i,,,,,;;###########");
+				console.log("###########;;,,;############,,:;j,,,,,,i##########");
+				console.log("###########;,,,,,,,########i,:j:j::,,,,iit########");
+				console.log("##########;,,,::::,,#######,,:.......::,,;;#######");
+				console.log("###########,,,:...::########,,::::...:,,,,;#######");
+				console.log("################:.################..:j,,,#########");
+				console.log("################j.################...:,,,#########");
+				console.log("#################i###############:..::,,,#########");
+				console.log("################################:..####,,#########");
+				console.log("#######;;,,####################.##################");
+				console.log("#######,;:,###########f###########################");
+				console.log("#######,:..##...####L#GDDDD#######################");
+				console.log("#######::.....######DDGfLGDGf#####################");
+				console.log("###,###..:;########LfLDGLDLfDD###########,,,,#####");
+				console.log("#i;,,##..########fGLDGLfjfDGDGf##########,,,,t####");
+				console.log("#;,,,..,#########GfffftffjffGfD########..:,ii#####");
+				console.log("#;,,,..#########LGGfffjfjffffLDG##################");
+				console.log("#t,jj..#######fffGLLffjtttjffLDGGG################");
+				console.log("###:...########GfffLLffttttfffLGG############i####");
+				console.log("###,:..########fftfGGfLjtjtffjfLL######..####;;###");
+				console.log("##,,,..########jttjLLftjfjffttLLLf#######.:,,,,;##");
+				console.log("#,,,,..#######ftjtLtffjtttfftjLLLf########.,,;,;##");
+				console.log("#####:,#######jtffjfffffffffLLGDLLD########.:ii,;#");
+				console.log("#####:;#######jtffffjffffffLLGGGGGGDL######..,,,;#");
+				console.log("####,,#######DjtttttfffffLLGGGLLLLL########..,,i##");
+				console.log("##;,:,########fttttfffffLLGGGGGLffG########..,,;t#");
+				console.log("#i,,:.#########GfLGGffffLGGGGDGLLG#########::,,,;#");
+				console.log("#i,,,.,##.######fD,fGfffLGGGG;Lt##########.,,,,,;#");
+				console.log("##;,,:.#...#######fLjDLLLGGGjfL########..:,,,;####");
+				console.log("##i,,,:....#########GGGGGGGG##########:.##########");
+				console.log("###;,,,....#########################::############");
+				console.log("####;,,:..########################,::#############");
+				console.log("#####;,,:..####################;,,:.##############");
+				console.log("#######,:..###################i,,:..##############");
+				console.log("########,::.##################,,.::###############");
+				console.log("###########::#################::.:################");
+				console.log("############################..####################");
+				console.log("###########################:.#####################");
+				console.log("##################################################");
 				
 				//init
-				show_class_list(select_monster_list("Q"));
+				show_class_list(select_monster_list("F"));
 				get_monster_for_select();
-				
+
 				//event
 				$("select#class").change(function() {
 					var data = select_monster_list($(this).val());
