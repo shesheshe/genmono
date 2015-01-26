@@ -230,9 +230,9 @@
 				}
 
 				function show_evolution_list(data) {
-					var row = data.list.length;
+					var row = data[0].list.length;
+					var _class = "{" + data[1] + "}";
 					var TableData = "<tr class='danger'><td>F</td><td>E</td><td>D</td><td>C</td><td>B</td><td>A</td><td>S</td><td>SS</td><td>SS+</td></tr>";
-
 					for (var i = 0; i < row; i++) {
 						if((i+1)%2 != 0) {
 							TableData += "<tr>";
@@ -240,17 +240,17 @@
 							TableData += "<tr class=\"info\">";
 						}
 
-						//TableData += "<td>" + (i+1) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].f) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].e) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].d) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].c) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].b) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].a) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].s) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].ss) + "</td>";
-						TableData += "<td>" + get_img(data.list[i].sss) + "</td>";
+						TableData += "<td class='{f}'>" + get_img(data[0].list[i].f) + "</td>";
+						TableData += "<td class='{e}'>" + get_img(data[0].list[i].e) + "</td>";
+						TableData += "<td class='{d}'>" + get_img(data[0].list[i].d) + "</td>";
+						TableData += "<td class='{c}'>" + get_img(data[0].list[i].c) + "</td>";
+						TableData += "<td class='{b}'>" + get_img(data[0].list[i].b) + "</td>";
+						TableData += "<td class='{a}'>" + get_img(data[0].list[i].a) + "</td>";
+						TableData += "<td class='{s}'>" + get_img(data[0].list[i].s) + "</td>";
+						TableData += "<td class='{ss}'>" + get_img(data[0].list[i].ss) + "</td>";
+						TableData += "<td class='{sss}'>" + get_img(data[0].list[i].sss) + "</td>";
 						TableData += "</tr>";
+						TableData = TableData.replace(_class, "danger");
 					}
 					$("table.table").append(TableData);				
 				}
@@ -269,13 +269,14 @@
 				}
 				
 				function select_evolution_list(_no) {
-					var data = evolution_data(), evolution_tmp = {"list":[]}, cnt = 0;
+					var data = evolution_data(), evolution_tmp = {"list":[]}, cnt = 0, _class = "";
 					if(_no == "all"){ return data; }					
 
 					for(var i in data.list) { //row
 						for(var j in data.list[i]) { //col
 							if(data.list[i][j]==_no) {
 								evolution_tmp.list[cnt++] = data.list[i];
+								_class = j;
 								break;
 							} else if(typeof data.list[i][j] !== 'string'){
 								for(var k in data.list[i][j]) { //col col
@@ -286,7 +287,7 @@
 							}
 						}
 					}
-					return evolution_tmp;
+					return [evolution_tmp, _class];
 				}
 				
 				function get_img(_no, _use) {
