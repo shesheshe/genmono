@@ -49,6 +49,7 @@
 <!DOCTYPE html>
 <html ng-app>
 	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>genmono2 tools v2 beta</title>
 		<link rel="stylesheet" href="css/bootstrap.min.css">
@@ -364,7 +365,7 @@
 							case "C":
 							case "B":
 								option += "<option value='" + data.list[i].no+"'>" + 
-										  data.list[i].class + ". " + data.list[i].name +
+										  data.list[i].class + ". " + data.list[i].name + " (" + data.list[i].use[0] + ")" +
 								          "</option>";
 						}
 					}
@@ -377,7 +378,7 @@
 							case "SS":
 							case "SS+":
 								option += "<option value='" + data.list[j].no+"'>" + 
-										  data.list[j].class + ". " + data.list[j].name +
+										  data.list[j].class + ". " + data.list[j].name + " (" + data.list[j].use[0] + ")" + 
 								          "</option>";
 							}
 					}
