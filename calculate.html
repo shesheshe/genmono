@@ -102,46 +102,64 @@
 							<td width="5%">固有值</td>
 							<td width="10%">點數</td>
 							<td width="10%">能力</td>
-							<td width="70%">調整</td>
+							<td width="10%">技能修正</td>
+							<td width="60%">調整</td>
 						</tr>
 						<tr>
 							<td width="5%">stamina</td>
 							<td width="5%"><div id="stamina_base"></div></td>
 							<td width="10%"><div id="stamina_base2">1</div></td>
 							<td width="10%"><div id="stamina_base3"></div></td>
-							<td width="70%"><div id="stamina_event"></div></td>
+							<td width="10%"><div id="stamina_base4"></div></td>
+							<td width="60%"><div id="stamina_event"></div></td>
 						</tr>
 						<tr class="info">
 							<td width="5%">attack</td>
 							<td width="5%"><div id="attack_base"></div></td>
 							<td width="10%"><div id="attack_base2">1</div></td>
 							<td width="10%"><div id="attack_base3"></div></td>
-							<td width="70%"><div id="attack_event"></div></td>
+							<td width="10%"><div id="attack_base4"></div></td>
+							<td width="60%"><div id="attack_event"></div></td>
 						</tr>
 						<tr>
 							<td width="5%">defense</td>
 							<td width="5%"><div id="defense_base"></div></td>
 							<td width="10%"><div id="defense_base2">1</div></td>
 							<td width="10%"><div id="defense_base3"></div></td>
-							<td width="70%"><div id="defense_event"></div></td>
+							<td width="10%"><div id="defense_base4"></div></td>
+							<td width="60%"><div id="defense_event"></div></td>
 						</tr>
 						<tr class="info">
 							<td width="5%">luck</td>
 							<td width="5%"><div id="luck_base"></div></td>
 							<td width="10%"><div id="luck_base2">1</div></td>
 							<td width="10%"><div id="luck_base3"></div></td>
-							<td width="70%"><div id="luck_event"></div></td>
+							<td width="10%"><div id="luck_base4"></div></td>
+							<td width="60%"><div id="luck_event"></div></td>
 						</tr>
 						<tr>
 							<td width="5%"></td>
 							<td width="5%"></td>
 							<td width="10%"><div id="total">0</div></td>
 							<td width="10%"></td>
-							<td width="70%"></td>
+							<td width="10%"></td>
+							<td width="60%"></td>
 						</tr>							
 					</table>
 
 
+				</div>
+				<div class="col-md-12">
+					<table class="table table-bordered" style="float:right">
+						<tr>
+							<td><input type="button" value="單誘惑" attr="single_temptation"/></td>
+							<td><input type="button" value="雙誘惑" attr="double_temptation"/></td>
+							<td><input type="button" value="單惡戲" attr="single_dalliance"/></td>
+							<td><input type="button" value="雙惡戲" attr="double_dalliance"/></td>
+							<td><input type="button" value="取消技能狀態" attr="test"/></td>
+							<td><input type="button" value="---" attr="test"/></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -166,6 +184,8 @@
 			$(function() {
 				console.log("∑(っ °Д °;)っ init monster_info");
 				
+				var skill_type = "";
+				
 				$("div#stamina_event").slider({
 					max:999,
 					min:1,
@@ -176,6 +196,10 @@
 											parseInt($("div#attack_base2").html()) + 
 											parseInt($("div#defense_base2").html()) +
 											parseInt($("div#luck_base2").html()));
+											
+						if(skill_type!="") {
+							$("input[attr=" + skill_type + "]").trigger("click");
+						}
 					}
 				});
 				$("div#attack_event").slider({
@@ -188,6 +212,10 @@
 											parseInt($("div#attack_base2").html()) + 
 											parseInt($("div#defense_base2").html()) +
 											parseInt($("div#luck_base2").html()));
+											
+						if(skill_type!="") {
+							$("input[attr=" + skill_type + "]").trigger("click");
+						}
 					}
 				});
 				$("div#defense_event").slider({
@@ -200,6 +228,10 @@
 											parseInt($("div#attack_base2").html()) + 
 											parseInt($("div#defense_base2").html()) +
 											parseInt($("div#luck_base2").html()));
+											
+						if(skill_type!="") {
+							$("input[attr=" + skill_type + "]").trigger("click");
+						}											
 					}
 				});
 				$("div#luck_event").slider({
@@ -212,6 +244,10 @@
 											parseInt($("div#attack_base2").html()) + 
 											parseInt($("div#defense_base2").html()) +
 											parseInt($("div#luck_base2").html()));
+											
+						if(skill_type!="") {
+							$("input[attr=" + skill_type + "]").trigger("click");
+						}											
 					}
 				});
 				
@@ -219,6 +255,60 @@
 				get_monster_for_select();
 
 				//event
+				$("input[attr=single_temptation]").on('click', function() {
+					var s = parseInt($("div#stamina_base3").html()),
+						a = parseInt($("div#attack_base3").html());
+				
+					$("div#stamina_base4").html(parseInt(s - (s * 0.20)));
+					$("div#attack_base4").html(parseInt(a + (s * 0.20)));
+					$("div#defense_base4").html($("div#defense_base3").html());
+					$("div#luck_base4").html($("div#luck_base3").html());
+					
+					skill_type = "single_temptation";
+				});
+
+				$("input[attr=double_temptation]").on('click', function() {
+					var s = parseInt($("div#stamina_base3").html()),
+						a = parseInt($("div#attack_base3").html());
+				
+					$("div#stamina_base4").html(parseInt(s - (s * 0.36)));
+					$("div#attack_base4").html(parseInt(a + (s * 0.36)));
+					$("div#defense_base4").html($("div#defense_base3").html());
+					$("div#luck_base4").html($("div#luck_base3").html());
+					
+					skill_type = "double_temptation";
+				});
+
+				$("input[attr=single_dalliance]").on('click', function() {
+					var s = parseInt($("div#stamina_base3").html()),
+						a = parseInt($("div#attack_base3").html()),
+						d = parseInt($("div#defense_base3").html());
+				
+					$("div#stamina_base4").html(parseInt(s + (d * 0.20)));
+					$("div#attack_base4").html(parseInt(a + (d * 0.20)));
+					$("div#defense_base4").html(parseInt(d - (d * 0.20)));
+					$("div#luck_base4").html($("div#luck_base3").html());
+					
+					skill_type = "single_dalliance";
+				});
+
+				$("input[attr=double_dalliance]").on('click', function() {
+					var s = parseInt($("div#stamina_base3").html()),
+						a = parseInt($("div#attack_base3").html()),
+						d = parseInt($("div#defense_base3").html());
+						
+					$("div#stamina_base4").html(parseInt(s + (d * 0.36)));
+					$("div#attack_base4").html(parseInt(a + (d * 0.36)));
+					$("div#defense_base4").html(parseInt(d - (d * 0.36)));
+					$("div#luck_base4").html($("div#luck_base3").html());
+					
+					skill_type = "double_dalliance";
+				});
+
+				$("input[attr=test]").on('click', function() {
+					skill_type = "";
+				});
+				
 				$("select#evolution,#evolution2").change(function() {
 					var data = monster_data(), row = data.list.length, _no = $(this).val(), temp = {"list":[]};
 
