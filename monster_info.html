@@ -55,6 +55,7 @@
 		<link rel="stylesheet" href="css/bootstrap.min.css">
 		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/bootstrap-select.min.css">
+		<link rel="stylesheet" href="css/footable.core.css">
 		<style type="text/css">
 			img.big {
 				height: 50px;
@@ -68,7 +69,7 @@
 				height: 20px;
 				width: 20px;
 			}
-			.table td {
+			.table td, th {
 				vertical-align: middle !important;
 				text-align: center !important;
 			}
@@ -112,6 +113,7 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"> </script>
 		<script type="text/javascript" src="js/bootstrap-select.min.js"> </script>
 		<script type="text/javascript" src="js/i18n/defaults-zh_TW.min.js"> </script>
+		<script type="text/javascript" src="js/footable.js"> </script>
 		<script type="text/javascript">
 			$(function() {
 				console.log("∑(っ °Д °;)っ init monster_info");
@@ -120,7 +122,8 @@
 				show_class_list(select_monster_list("F"));
 				//show_evolution_list(select_evolution_list("3"), 3);
 				get_monster_for_select();
-
+				$('table').footable();
+				
 				//event
 				$("select#class").change(function() {
 					var data = select_monster_list($(this).val());
@@ -192,7 +195,20 @@
 				function show_evolution_list(data, target) {
 					var row = data[0].list.length;
 					var _class = "{" + data[1] + "}";
-					var TableData = "<tr class='danger'><td>no</td><td>F</td><td>E</td><td>D</td><td>C</td><td>B</td><td>A</td><td>S</td><td>SS</td><td>SS+</td><td>point</td></tr>";
+					var TableData = "<thead>";
+					TableData += "<tr class='danger'>";
+					TableData += "<th>no</th>";
+					TableData += "<th data-class='expand'>F</th>";
+					TableData += "<th data-hide='phone,tablet'>E</th>";
+					TableData += "<th data-hide='phone,tablet'>D</th>";
+					TableData += "<th data-hide='phone,tablet'>C</th>";
+					TableData += "<th data-hide='phone,tablet'>B</th>";
+					TableData += "<th data-hide='phone,tablet'>A</th>";
+					TableData += "<th data-hide='phone,tablet'>S</th>";
+					TableData += "<th data-hide='phone,tablet'>SS</th>";
+					TableData += "<th data-hide='phone,tablet'>SS+</th>";
+					TableData += "<th data-hide='phone,tablet'>point</th></tr></thead><tbody>";
+
 					for (var i = 0; i < row; i++) {
 						if((i+1)%2 != 0) {
 							TableData += "<tr>";
@@ -237,8 +253,9 @@
 						TableData += "</tr>";
 
 						TableData = TableData.replace(_class, "danger");
+						break;
 					}
-					$("table.table").append(TableData);				
+					$("table.table").append(TableData + "</tbody>");				
 				}
 				
 				function select_monster_list(_class) {
@@ -308,15 +325,15 @@
 						if(data.list[i].no == _no) {
 							iName = data.list[i].use[0];
 							if(is_limit(data.list[i].img.substring(0, 4))) {
-								img = "?<br />" + data.list[i].name;
+								img = "?" + data.list[i].name;
 							} else {
-								img = create_img(safe_img(data.list[i].img), "small", 0) + "<br />" + data.list[i].name;
+								img = create_img(safe_img(data.list[i].img), "small", 0) + data.list[i].name;
 							}
 							
 							if(is_limit(iName)) {
-								img2 = "?<br />" + iName;
+								img2 = "?" + iName;
 							} else {
-								img2 = create_img(safe_img(iName), "xsmall", 1) + "<br />" + iName;
+								img2 = create_img(safe_img(iName), "xsmall", 1) + iName;
 							}
 
 							html = '<div class="container-fluid">';
