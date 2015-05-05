@@ -117,7 +117,8 @@
 				console.log("∑(っ °Д °;)っ init monster_info");
 				
 				//init
-				show_class_list(select_monster_list("F"));
+				//show_class_list(select_monster_list("F"));
+				show_evolution_list(select_evolution_list("3"));
 				get_monster_for_select();
 
 				//event
@@ -191,7 +192,7 @@
 				function show_evolution_list(data) {
 					var row = data[0].list.length;
 					var _class = "{" + data[1] + "}";
-					var TableData = "<tr class='danger'><td>no</td><td>F</td><td>E</td><td>D</td><td>C</td><td>B</td><td>A</td><td>S</td><td>SS</td><td>SS+</td></tr>";
+					var TableData = "<tr class='danger'><td>no</td><td>F</td><td>E</td><td>D</td><td>C</td><td>B</td><td>A</td><td>S</td><td>SS</td><td>SS+</td><td>point</td></tr>";
 					for (var i = 0; i < row; i++) {
 						if((i+1)%2 != 0) {
 							TableData += "<tr>";
@@ -204,6 +205,16 @@
 						} else {
 							TableData += "<td>" + (i+1) + "</td>";
 						}
+
+						t_value = get_all_value_by_value([data[0].list[i].f,
+														  data[0].list[i].e,
+														  data[0].list[i].d,
+														  data[0].list[i].c,
+														  data[0].list[i].b,
+														  data[0].list[i].a,
+														  data[0].list[i].s,
+														  data[0].list[i].ss,
+														  data[0].list[i].sss]);
 						
 						TableData += "<td class='{f}'>" + get_img(data[0].list[i].f) + "</td>";
 						TableData += "<td class='{e}'>" + get_img(data[0].list[i].e) + "</td>";
@@ -214,7 +225,16 @@
 						TableData += "<td class='{s}'>" + get_img(data[0].list[i].s) + "</td>";
 						TableData += "<td class='{ss}'>" + get_img(data[0].list[i].ss) + "</td>";
 						TableData += "<td class='{sss}'>" + get_img(data[0].list[i].sss) + "</td>";
+						
+						TableData += "<td class='{point}'>";
+						TableData += "<div class='col-md-12'>";
+						TableData += "S:" + t_value.S + "<br />";
+						TableData += "A:" + t_value.A + "<br />";
+						TableData += "D:" + t_value.D + "<br />";
+						TableData += "</div>";
+						TableData += "</td>";
 						TableData += "</tr>";
+
 						TableData = TableData.replace(_class, "danger");
 					}
 					$("table.table").append(TableData);				
@@ -265,9 +285,8 @@
 						col_tmp = parseInt(12 / _no.length); 
 						html += '<div class="container-fluid">';
 						html += '<div class="row">';
-						
 						for(var i=0; i<_no.length; i++) {
-						html += '<div class="col-md-' + col_tmp + '">';
+							html += '<div class="col-md-' + col_tmp + '">';
 							html += get_img2(_no[i], _use);
 							html += '</div>';
 						}
@@ -284,7 +303,6 @@
 				//顯示幻獸以及他的變化
 				function get_img2(_no, _use) {
 					var data = monster_data(), iName = "";
-					
 					for(var i in data.list) {
 						if(data.list[i].no == _no) {
 							iName = data.list[i].use[0];
@@ -299,19 +317,18 @@
 							} else {
 								img2 = create_img(safe_img(iName), "xsmall", 1) + "<br />" + iName;
 							}
-
+							
 							html = '<div class="container-fluid">';
 							html += '  <div class="row">';
-							html += '    <div class="col-md-12">';
-							html += img;
-							html += '    </div>';
+							html += create_value_for_div(img, '', false);
+							html += create_value_for_div('S:', data.list[i].S, true);
+							html += create_value_for_div('A:', data.list[i].A, true);
+							html += create_value_for_div('D:', data.list[i].D, true);
 							html += '  </div>';
 							
 							if(_use) {
 								html += '  <div class="row">';
-								html += '    <div class="col-md-12">';
-								html += img2;
-								html += "    </div>";
+								html += create_value_for_div(img2, '', false);
 								html += "  </div>";
 							}
 							
@@ -391,6 +408,41 @@
 						}
 					}
 					return "";
+				}
+				
+				function create_value_for_div(test, value, is_value) {
+					html = '    <div class="col-md-12">';
+					html += test;
+					if(is_value) {
+						if(test == 'S:') {
+							value = get_default_by_value(value / 3);
+						}
+						html += get_point_by_value(value, test);
+					}
+					html += '    </div>';
+					return html;
+				}
+				
+				function get_point_by_value(value) {
+					return Math.ceil(((value * 1.111) * 100) / 100);
+				}
+				
+				function get_default_by_value(value) {
+					return (value * 100) / 100;
+				}
+				
+				function get_all_value_by_value(_no) {
+					var data = monster_data(), t_s = 0, t_a = 0, t_d = 0;
+					for(var i in data.list) {
+						if(jQuery.inArray(data.list[i].no, _no) != -1) {
+							
+							t_s += get_point_by_value(get_default_by_value(data.list[i].S / 3));
+							t_a += get_point_by_value(get_default_by_value(data.list[i].A));
+							t_d += get_point_by_value(get_default_by_value(data.list[i].D));
+							
+						}
+					}
+					return {"S":t_s, "A":t_a, "D":t_d};
 				}
 				
 			});
