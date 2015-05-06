@@ -599,19 +599,16 @@
             var $table = $(ft.table),
                 breakpointName = $table.data('breakpoint'),
                 hasBreakpointFired = ft.hasBreakpointColumn(breakpointName);
-console.log(ft);
+
             $table
                 .find('> tbody > tr:not(.' + cls.detail + ')').data('detail_created', false).end()
                 .find('> thead > tr:last-child > th')
                 .each(function () {
                     var data = ft.columns[$(this).index()], selector = '', first = true;
-					console.log($(this).index());
-					console.log(data);
                     $.each(data.matches, function (m, match) {
                         if (!first) {
                             selector += ', ';
                         }
-						//Uncaught TypeError: Cannot read property 'matches' of undefined
                         var count = match + 1;
                         selector += '> tbody > tr:not(.' + cls.detail + ') > td:nth-child(' + count + ')';
                         selector += ', > tfoot > tr:not(.' + cls.detail + ') > td:nth-child(' + count + ')';

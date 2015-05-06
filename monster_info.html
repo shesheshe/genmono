@@ -96,12 +96,24 @@
 						<option value="SS">SS</option>
 						<option value="SS+">SS+</option>
 					</select> <font color="#f00" size="4">or</font> 
+					(
 					<select class="selectpicker" id="evolution">
-						<option value="">請選擇(下位)</option>
-					</select> <font color="#f00" size="4">or</font> 
-					<select class="selectpicker" id="evolution2">
+						<option value="">請選擇(class)</option>
+						<option value="F" selected>F</option>
+						<option value="E">E</option>
+						<option value="D">D</option>
+						<option value="C">C</option>
+						<option value="B">B</option>
+						<option value="A">A</option>
+						<option value="S">S</option>
+						<option value="SS">SS</option>
+						<option value="SS+">SS+</option>
+					</select> <font color="#f00" size="4">and</font> 
+					<!--<select class="selectpicker" id="evolution2">-->
+					<select class="#" id="evolution2">
 						<option value="">請選擇(上位)</option>
 					</select>
+					)
 					<table class="table table-bordered" style="float:right">
 					</table>	
 				</div>
@@ -121,7 +133,11 @@
 				//init
 				show_class_list(select_monster_list("F"));
 				//show_evolution_list(select_evolution_list("3"), 3);
-				get_monster_for_select();
+				var monster_no = get_monster_for_select("F");
+				var data = select_evolution_list(monster_no);
+				$("table.table").html("");
+				show_evolution_list(data, monster_no);
+				
 				$('table').footable();
 				
 				//event
@@ -131,7 +147,14 @@
 					show_class_list(data);
 				});
 
-				$("select#evolution,#evolution2").change(function() {
+				$("select#evolution").change(function() {
+					var monster_no = get_monster_for_select($(this).val());
+					var data = select_evolution_list(monster_no);
+					$("table.table").html("");
+					show_evolution_list(data, monster_no);
+				});
+				
+				$("select#evolution2").change(function() {
 					var data = select_evolution_list($(this).val());
 					$("table.table").html("");
 					show_evolution_list(data, $(this).val());
@@ -253,7 +276,6 @@
 						TableData += "</tr>";
 
 						TableData = TableData.replace(_class, "danger");
-						break;
 					}
 					$("table.table").append(TableData + "</tbody>");				
 				}
@@ -325,15 +347,15 @@
 						if(data.list[i].no == _no) {
 							iName = data.list[i].use[0];
 							if(is_limit(data.list[i].img.substring(0, 4))) {
-								img = "?" + data.list[i].name;
+								img = "?<br />" + data.list[i].name;
 							} else {
-								img = create_img(safe_img(data.list[i].img), "small", 0) + data.list[i].name;
+								img = create_img(safe_img(data.list[i].img), "small", 0) + "<br />" + data.list[i].name;
 							}
 							
 							if(is_limit(iName)) {
-								img2 = "?" + iName;
+								img2 = "?<br />" + iName;
 							} else {
-								img2 = create_img(safe_img(iName), "xsmall", 1) + iName;
+								img2 = create_img(safe_img(iName), "xsmall", 1) + "<br />" + iName;
 							}
 
 							html = '<div class="container-fluid">';
@@ -360,34 +382,25 @@
 					return "";				
 				}
 				
-				function get_monster_for_select() {
+				function get_monster_for_select(_class) {
 					var data = monster_data(), row = data.list.length, option = "";
-					for(var i=2; i<row; i++) {
-						switch(data.list[i].class) {
-							case "F":
-							case "E":
-							case "D":
-							case "C":
-							case "B":
-								option += "<option value='" + data.list[i].no+"'>" + 
-										  data.list[i].class + ". " + data.list[i].name + " (" + data.list[i].use[0] + ")" +
-								          "</option>";
+					$("select#evolution2").html("");
+					return_no = "";
+					break_flag = 1;
+					for(var j=2; j<row; j++) {
+						if(data.list[j].class == _class) {
+							if(break_flag == 1) {
+								return_no = data.list[j].no;
+								break_flag++;
+							}
+							option += "<option value='" + data.list[j].no+"'>" + 
+									  data.list[j].class + ". " + data.list[j].name + " (" + data.list[j].use[0] + ")" + 
+									  "</option>";						
 						}
 					}
-					$("select#evolution").append(option);
-					option = "";
-					for(var j=2; j<row; j++) {
-						switch(data.list[j].class) {
-							case "A":
-							case "S":
-							case "SS":
-							case "SS+":
-								option += "<option value='" + data.list[j].no+"'>" + 
-										  data.list[j].class + ". " + data.list[j].name + " (" + data.list[j].use[0] + ")" + 
-								          "</option>";
-							}
-					}
-					$("select#evolution2").append(option);	
+					console.log(option);
+					$("select#evolution2").append(option);
+					return return_no;
 				}
 				
 				function safe_img(img_name) {
@@ -837,13 +850,13 @@
 			
 		</script>
 		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			/*(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
 			ga('create', 'UA-50817771-2', 'auto');
-			ga('send', 'pageview');
+			ga('send', 'pageview');*/
 		</script>
 	</body>
 </html>
