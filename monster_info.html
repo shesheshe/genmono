@@ -52,8 +52,10 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>genmono2 tools v2 beta</title>
-		<link rel="stylesheet" href="css/bootstrap.min.css">
-		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<!--<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">-->
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
 		<link rel="stylesheet" href="css/bootstrap-select.min.css">
 		<link rel="stylesheet" href="css/footable.core.css">
 		<style type="text/css">
@@ -76,60 +78,123 @@
 		</style>
 	</head>
 	<body>
+	
+		<nav class="navbar navbar-default" role="navigation">
+		   <div class="navbar-header">
+			  <button type="button" class="navbar-toggle" data-toggle="collapse" 
+				 data-target="#example-navbar-collapse">
+				 <span class="sr-only">切换导航</span>
+				 <span class="icon-bar"></span>
+				 <span class="icon-bar"></span>
+				 <span class="icon-bar"></span>
+			  </button>
+			  <a class="navbar-brand" href="index.html">∑(っ °Д °;)っ genmono2 tools</a>
+		   </div>
+		   <div class="collapse navbar-collapse" id="example-navbar-collapse">
+			  <ul class="nav navbar-nav">
+				 <li class="active"><a href="#">test</a></li>
+				 <li><a href="#">test</a></li>
+				 <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+					   test <b class="caret"></b>
+					</a>
+					<ul class="dropdown-menu">
+					   <li><a href="#">test</a></li>
+					   <li><a href="#">test</a></li>
+					   <li><a href="#">test</a></li>
+					   <li class="divider"></li>
+					   <li><a href="#">test</a></li>
+					   <li class="divider"></li>
+					   <li><a href="#">test</a></li>
+					</ul>
+				 </li>
+				 <li><a target="_blank" href="http://genmono2.wiki.fc2.com/">這是幻獸物語2簡單工具, 基於 genmono wiki 而製作.</a></li>
+			  </ul>
+		   </div>
+		</nav>
+
 		<div class="container-fluid">
-			<div class="row">
+			<!--<div class="row">
 				<div class="col-md-12">
 					<h4>∑(っ °Д °;)っ 這是幻獸物語2簡單工具, 基於 <a href='http://genmono2.wiki.fc2.com/'>genmono wiki</a> 而製作. <a href="index.html">go to index.</a></h4>
 				</div>
-			</div>
+			</div>-->
 			<div class="row">
-				<div class="col-md-12">
-					<select class="selectpicker" id="class">
-						<option value="">請選擇(class)</option>
-						<option value="F">F</option>
-						<option value="E">E</option>
-						<option value="D">D</option>
-						<option value="C">C</option>
-						<option value="B">B</option>
-						<option value="A">A</option>
-						<option value="S">S</option>
-						<option value="SS">SS</option>
-						<option value="SS+">SS+</option>
-					</select> <font color="#f00" size="4">or</font> 
-					(
-					<select class="selectpicker" id="evolution">
-						<option value="">請選擇(class)</option>
-						<option value="F" selected>F</option>
-						<option value="E">E</option>
-						<option value="D">D</option>
-						<option value="C">C</option>
-						<option value="B">B</option>
-						<option value="A">A</option>
-						<option value="S">S</option>
-						<option value="SS">SS</option>
-						<option value="SS+">SS+</option>
-					</select> <font color="#f00" size="4">and</font> 
-					<!--<select class="selectpicker" id="evolution2">-->
-					<select class="#" id="evolution2">
-						<option value="">請選擇(上位)</option>
-					</select>
-					)
-					<table class="table table-bordered" style="float:right">
-					</table>	
-				</div>
+					<div class="col-md-12">
+						<select class="selectpicker" id="class">
+							<option value="">請選擇(class)</option>
+							<option value="F">F</option>
+							<option value="E">E</option>
+							<option value="D">D</option>
+							<option value="C">C</option>
+							<option value="B">B</option>
+							<option value="A">A</option>
+							<option value="S">S</option>
+							<option value="SS">SS</option>
+							<option value="SS+">SS+</option>
+						</select> <font color="#f00" size="4">or</font> 
+						(
+						<select class="selectpicker" id="evolution">
+							<option value="">請選擇(class)</option>
+							<option value="F" selected>F</option>
+							<option value="E">E</option>
+							<option value="D">D</option>
+							<option value="C">C</option>
+							<option value="B">B</option>
+							<option value="A">A</option>
+							<option value="S">S</option>
+							<option value="SS">SS</option>
+							<option value="SS+">SS+</option>
+						</select> <font color="#f00" size="4">and</font> 
+						<!--<select class="selectpicker" id="evolution2">-->
+						<select class="#" id="evolution2">
+							<option value="">請選擇(上位)</option>
+						</select>
+						) *進化路線圖龐大, 請盡量以PC觀看, 謝謝. </p>
+						<table class="table table-bordered" style="float:right">
+						</table>	
+					</div>
 			</div>
 		</div>
 
+		<footer id="footer" class="footer hidden-print">
+            <div class="container text-center">
+                <ul class="list-inline">
+                    <!--<li><a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/tw/"><img alt="創用 CC 授權條款" src="https://i.creativecommons.org/l/by-sa/3.0/tw/80x15.png"></a></li>
+                    <li>
+                        <a target="_blank" href="http://zh.nekowiz.wikia.com/wiki/%E9%A1%8C%E5%BA%AB%E6%90%9C%E5%B0%8B%E5%99%A8">wikia</a>
+                    </li>-->
+                    <li>
+                        <a target="_blank" href="#" onclick="return false">[]</a>
+                    </li>
+                    <li class="hidden-xs">
+                        <a target="_blank" href="#" onclick="return false">專案原始碼</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="#" onclick="return false">回報網頁問題</a>
+                    </li>
+                    <li>
+                        <a href="#" data-toggle="modal" data-target="#update-modal" onclick="return false">更新紀錄</a>
+                    </li>
+                    <li>
+                        <a target="_blank" href="#" onclick="return false">關於作者</a>
+                    </li>
+                    <li class="visible-xs-inline-block"><a id="btn-hide-footer" href="javascript:void(0)">隱藏版尾</a></li>
+                </ul>
+            </div>
+        </footer>
+		
 		<script type="text/javascript" src="js/angular.min.js"> </script>
 		<script type="text/javascript" src="js/jquery-2.1.3.min.js"> </script>
-		<script type="text/javascript" src="js/bootstrap.min.js"> </script>
+		<!--<script type="text/javascript" src="js/bootstrap.min.js"> </script>-->
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"> </script>
 		<script type="text/javascript" src="js/bootstrap-select.min.js"> </script>
 		<script type="text/javascript" src="js/i18n/defaults-zh_TW.min.js"> </script>
 		<script type="text/javascript" src="js/footable.js"> </script>
 		<script type="text/javascript">
 			$(function() {
 				console.log("∑(っ °Д °;)っ init monster_info");
-				
+				/*
 				//init
 				show_class_list(select_monster_list("F"));
 				//show_evolution_list(select_evolution_list("3"), 3);
@@ -137,7 +202,7 @@
 				var data = select_evolution_list(monster_no);
 				$("table.table").html("");
 				show_evolution_list(data, monster_no);
-				
+				*/
 				$('table').footable();
 				
 				//event
@@ -158,6 +223,10 @@
 					var data = select_evolution_list($(this).val());
 					$("table.table").html("");
 					show_evolution_list(data, $(this).val());
+				});
+				
+				$("li").on("click", function() {
+					alert("沒有! 您可以關掉了.");
 				});
 				
 				//function
