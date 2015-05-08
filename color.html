@@ -20,20 +20,20 @@
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    en
+                    印尼文(ie)
                 </h3>
             </div>
-            <div class="panel-body en" style="position: relative;">
+            <div class="panel-body ie" style="position: relative;">
             </div>
         </div>
         </p>
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    ie
+                    英文(en)
                 </h3>
             </div>
-            <div class="panel-body ie"  style="position: relative;">
+            <div class="panel-body en"  style="position: relative;">
             </div>
         </div>
     </div>
@@ -47,26 +47,33 @@
             var color_list = [
                 ["黑色","Hitam","Black"], 
                 ["白色","Putih","White"],
-                ["黃色","Kuning","Yellow"],
-                ["咖啡色","Coklat","Brown"],
-                ["灰色","Abu","Grey"],
-                ["紫色","Ungu","Purple"],
-                ["綠色","Hijau","Green"],
-                ["橘色","Oranye","Orange"],
+                ["灰色","Abu","Grey","br"],
+                
                 ["紅色","Merah","Red"],
+                ["粉紅色","Pink","Pink"],
+                ["橘色","Oranye","Orange"],
+                ["黃色","Kuning","Yellow"],
+                ["綠色","Hijau","Green"],
                 ["藍色","Biru","Blue"],
+                ["紫色","Ungu","Purple","br"],
+                ["米黃色or卡其色","Krim ","Cream"],
+                ["咖啡色","Coklat","Brown","br"],
+                
+                ["淺灰","Abu Muda","Light Grey"],
+                ["深灰","Abu Tua","Dark Grey"],
                 ["淺藍","Biru Muda","Light Blue"],
                 ["深藍","Biru Tua","Dark Blue"],
-                ["粉紅色","Pink","Pink"],
                 ["淺粉紅","Pink Muda","Light Pink"],
-                ["深粉紅","Pink Tua ","Dark Pink"],
-                ["米黃色or卡其色","Krim ","Cream"],
+                ["深粉紅","Pink Tua ","Dark Pink","br"],
+                
                 ["豹紋","Macan","Leopard"],
+                ["黑白格","Hitam-Putih","Black-White"],
+                ["條紋","Garis2","Stripes","br"],
+                
                 ["金","Emas","Gold"],
                 ["銀","Perak","Silver"],
                 ["玫瑰金","Emas Rose","Rose Gold"],
-                ["條紋","Garis2","Stripes"],
-                ["黑白格","Hitam-Putih","Black-White"]
+                
             ];
 
             create_color_btn();
@@ -95,9 +102,12 @@
             function create_color_btn() {
                 html = "";
                 for(var i in color_list) {
-                    for(var j in color_list[i]) {
-                        html += "<button type='button' class='btn btn-default color' color='" + color_list[i][0] + "'>" + color_list[i][0] + "</button>";
-                        break;
+                    //html += "<button type='button' class='btn btn-default color' color='" + color_list[i][0] + "' style='background-color:" + color_list[i][2] + ";'>" + color_list[i][0] + "</button>";
+                    html += "<button type='button' class='btn btn-default color' color='" + color_list[i][0] + "'>" + color_list[i][0] + "</button>";
+                        
+                    if(color_list[i][3] == "br") {
+                        console.log(color_list[i][3]);
+                        html += "<br /><br />";
                     }
                 }
                 $("div.color_list").append(html);
