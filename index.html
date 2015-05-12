@@ -97,8 +97,10 @@
                         new
                     </h3>
                 </div>
-                <div class="panel-body en"  style="position: relative;">
-                </div>
+                <center>
+                    <div class="panel-body news"  style="position: relative;">
+                    </div>
+                </center>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -121,8 +123,8 @@
                     <table class="table table-bordered">
                         <tr>
                             <td>
-                                <a href="dungeon_info.html">
-                                    <h3>地下城資訊(補資料中)</h3>
+                                <a href="#">
+                                    <h3>地下城資訊(未開放)</h3>
                                 </a>
                             </td>
                         </tr>
@@ -212,7 +214,28 @@
                 $("#nav").load("nav.html");
                 $("#footer").load("footer.html");
                 $("#modal_popup").load("modal_popup.html");
+
+                var news = [
+                    ["20150512001.png", "５月期『月替わり宝箱』販売開始！！", "http://genmono2.jp/blog-entry-252.html"],
+                    [""],
+                    [""],
+                    [""],
+                    [""] 
+                ];
                 
+                var content = "", img_doc = "img/ad/";
+                
+                for(var i in news) {
+                    if(news[i] != "") {
+                        content = "<div>" + news[i][1];
+                        content += "<a target='_blank' href='" + news[i][2] + "'>";
+                        content += "<img class='img-responsive' src='" + img_doc + news[i][0] + "' alt='" + news[i][1] + "' />";
+                        content += "</a></div><br />";
+                        $("div.news").append(content);
+                    }
+                }
+                
+                //console.log(news);
             });
         </script>
         <script>
