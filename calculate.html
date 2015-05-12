@@ -214,6 +214,33 @@
         <script type="text/javascript">
             $(function() {
                 console.log("∑(っ °Д °;)っ init monster_info");
+                console.log("∑(っ °Д °;)っ test!!");
+                
+                
+                $.ajax({
+                type: 'GET',
+                url: 'monster_data.json',
+                error: function (xhr) {
+                    console.log("error");
+                    console.log(xhr);
+                },
+                success: function (response) {
+                    console.log("success");
+                    console.log(response);
+                },
+                xhrFields: {
+                    onprogress: function (event) {
+                        //console.log(event);
+                        
+                        //Download progress
+                        if (event.lengthComputable) {  
+                        
+                            console.log(event.loaded + " / " + event.total);
+                        
+                        }
+                    }
+                }
+            });
                 
                 $("#nav").load("nav.html");
                 $("#footer").load("footer.html");
