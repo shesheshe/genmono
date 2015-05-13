@@ -36,6 +36,24 @@
             <div class="panel-body en"  style="position: relative;">
             </div>
         </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    印尼文 + 英文
+                </h3>
+            </div>
+            <div class="panel-body horizontal"  style="position: relative;">
+            </div>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">
+                    印尼文簡寫 + 中文
+                </h3>
+            </div>
+            <div class="panel-body horizontal2"  style="position: relative;">
+            </div>
+        </div>
     </div>
     <script src="http://apps.bdimg.com/libs/jquery/2.0.0/jquery.min.js"> </script>
     <script src="http://apps.bdimg.com/libs/bootstrap/3.3.0/js/bootstrap.min.js"> </script>
@@ -45,34 +63,42 @@
     <script type="text/javascript">
         $(function() {
             var color_list = [
-                ["黑色","Hitam","Black"], 
-                ["白色","Putih","White"],
-                ["灰色","Abu","Grey","br"],
+                ["黑色","Hitam","Black","htm"], 
+                ["白色","Putih","White","pth"],
+                ["灰色","Abu","Grey","abu","br"],
                 
-                ["紅色","Merah","Red"],
-                ["粉紅色","Pink","Pink"],
-                ["橘色","Oranye","Orange"],
-                ["黃色","Kuning","Yellow"],
-                ["綠色","Hijau","Green"],
-                ["藍色","Biru","Blue"],
-                ["紫色","Ungu","Purple","br"],
-                ["米黃色or卡其色","Krim ","Cream"],
-                ["咖啡色","Coklat","Brown","br"],
+                ["紅色","Merah","Red","mrh"],
+                ["粉紅色","Pink","Pink","pink"],
+                ["橘色","Oranye","Orange","orange"],
+                ["黃色","Kuning","Yellow","kuning"],
+                ["綠色","Hijau","Green","hju"],
+                ["藍色","Biru","Blue","biru"],
+                ["紫色","Ungu","Purple","ungu","br"],
+                ["米黃色or卡其色","Krim","Cream","krim"],
+                ["咖啡色","Coklat","Brown","cklt","br"],
                 
                 ["淺灰","Abu muda","Light Grey"],
-                ["深灰","Abu tua","Dark Grey"],
-                ["淺藍","Biru muda","Light Blue"],
-                ["深藍","Biru tua","Dark Blue"],
+                ["深灰","Abu tua","Dark Grey","abu tua"],
+                ["淺藍","Biru muda","Light Blue","biru muda"],
+                ["深藍","Biru tua","Dark Blue","biru tua"],
                 ["淺粉紅","Pink muda","Light Pink"],
-                ["深粉紅","Pink tua ","Dark Pink","br"],
+                ["深粉紅","Pink tua ","Dark Pink","pink tua","br"],
                 
-                ["豹紋","Macan","Leopard"],
-                ["黑白格","Hitam-Putih","Black-White"],
-                ["條紋","Garis2","Stripes","br"],
+                ["豹紋","Macan","Leopard","mcn"],
+                ["黑白格","Hitam-Putih","Black-White","htm-pth"],
+                ["條紋","Garis2","Stripes","grs2","br"],
                 
-                ["金","Emas","Gold"],
-                ["銀","Perak","Silver"],
-                ["玫瑰金","Emas rose","Rose Gold"],
+                ["金","Emas","Gold","emas"],
+                ["銀","Perak","Silver","perak"],
+                ["玫瑰金","Emas rose","Rose Gold","emas rose","br"],
+                
+                ["情侶","COWOK","man","COWOK 男 CEWEK 女"],
+                
+                //["男","COWOK","man","COWOK"],
+                //["女","CEWEK","woman","CEWEK"],
+                
+                //["男","COWOK","man","cow"],
+                //["女","CEWEK","woman","cew"],
                 
             ];
 
@@ -80,13 +106,24 @@
             
             $(".color").on("click", function(){
                 var color = get_color($(this).attr("color"));
-                $(".en").append(color[2] + "<br />\n");
-                $(".ie").append(color[1] + "<br />\n");
+                if($(this).attr("color")=="情侶") {
+                    $(".en").append(color[3] + "<br />\n");
+                    $(".ie").append(color[3] + "<br />\n");
+                    $(".horizontal").append(color[3] + " ");
+                    $(".horizontal2").append(color[3] + " ");
+                } else {
+                    $(".en").append(color[2] + "<br />\n");
+                    $(".ie").append(color[1] + "<br />\n");
+                    $(".horizontal").append(color[1] + " " + color[2] + " ");
+                    $(".horizontal2").append(color[3] + " " + color[0] + " ");
+                }
             });
             
             $(".reset").on("click", function(){
                 $(".en").html("");
                 $(".ie").html("");
+                $(".horizontal").html("");
+                $(".horizontal2").html("");
             });
             
             function get_color(_val) {
@@ -105,8 +142,8 @@
                     //html += "<button type='button' class='btn btn-default color' color='" + color_list[i][0] + "' style='background-color:" + color_list[i][2] + ";'>" + color_list[i][0] + "</button>";
                     html += "<button type='button' class='btn btn-default color' color='" + color_list[i][0] + "'>" + color_list[i][0] + "</button>";
                         
-                    if(color_list[i][3] == "br") {
-                        console.log(color_list[i][3]);
+                    if(color_list[i][4] == "br") {
+                        console.log(color_list[i][4]);
                         html += "<br /><br />";
                     }
                 }
