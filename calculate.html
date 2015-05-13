@@ -116,7 +116,22 @@
                     </h3>
                 </div>
                 <div class="panel-body status"  style="position: relative;">
-                    status: none
+                    <select class="selectpicker" id="skill1">
+                        <option value="">請選擇</option>
+                        <option value="0">加護</option>
+                        <option value="1">誘惑</option>
+                        <option value="2">惡戲</option>
+                        <option value="3">冥想</option>
+                    </select> <br />
+                    <select class="selectpicker" id="skill2">
+                        <option value="">請選擇</option>
+                        <option value="0">加護</option>
+                        <option value="1">誘惑</option>
+                        <option value="2">惡戲</option>
+                        <option value="3">冥想</option>
+                    </select>
+                    <input type="button" class="enter" value="enter"/>
+                    <input type="button" class="clear" value="clear"/>
                 </div>
             </div>
             <div class="row">
@@ -137,9 +152,9 @@
                             <td width="10%"><div id="stamina_base3"></div></td>
                             <td width="10%"><div id="stamina_base4"></div></td>
                             <td width="60%">
-                                <!--<div><input id="stamina_event_des" type="button" value="-1"/></div>-->
+                                <div><input class="des" type="button" value="-1" attr="s"/></div>
                                 <div id="stamina_event"></div>
-                                <!--<div><input id="stamina_event_add" type="button" value="+1"/></div>-->
+                                <div><input class="add" type="button" value="+1" attr="s"/></div>
                             </td>
                         </tr>
                         <tr class="info">
@@ -148,7 +163,11 @@
                             <td width="10%"><div id="attack_base2">1</div></td>
                             <td width="10%"><div id="attack_base3"></div></td>
                             <td width="10%"><div id="attack_base4"></div></td>
-                            <td width="60%"><div id="attack_event"></div></td>
+                            <td width="60%">
+                                <div><input class="des" type="button" value="-1" attr="a"/></div>
+                                <div id="attack_event"></div>
+                                <div><input class="add" type="button" value="+1" attr="a"/></div>
+                            </td>
                         </tr>
                         <tr>
                             <td width="5%">defense</td>
@@ -156,7 +175,11 @@
                             <td width="10%"><div id="defense_base2">1</div></td>
                             <td width="10%"><div id="defense_base3"></div></td>
                             <td width="10%"><div id="defense_base4"></div></td>
-                            <td width="60%"><div id="defense_event"></div></td>
+                            <td width="60%">
+                                <div><input class="des" type="button" value="-1" attr="d"/></div>
+                                <div id="defense_event"></div>
+                                <div><input class="add" type="button" value="+1" attr="d"/></div>
+                            </td>
                         </tr>
                         <tr class="info">
                             <td width="5%">luck</td>
@@ -164,7 +187,11 @@
                             <td width="10%"><div id="luck_base2">1</div></td>
                             <td width="10%"><div id="luck_base3"></div></td>
                             <td width="10%"><div id="luck_base4"></div></td>
-                            <td width="60%"><div id="luck_event"></div></td>
+                            <td width="60%">
+                                <div><input class="des" type="button" value="-1" attr="l"/></div>
+                                <div id="luck_event"></div>
+                                <div><input class="add" type="button" value="+1" attr="l"/></div>
+                            </td>
                         </tr>
                         <tr>
                             <td width="5%"></td>
@@ -176,7 +203,7 @@
                         </tr>                            
                     </table>
                 </div>
-                <div class="col-md-12">
+                <!--<div class="col-md-12">
                     <table class="table table-bordered">
                         <tr>
                             <td><input type="button" value="單誘惑" attr="single_temptation"/></td>
@@ -187,7 +214,7 @@
                             <td><input type="button" value="---" attr="test"/></td>
                         </tr>
                     </table>
-                </div>
+                </div>-->
             </div>
         </div>
         
@@ -215,153 +242,172 @@
                     },
                     success: function (response) {
                         //console.log("success");
-                        var alldata = response;
+                        var alldata = response,
+                            skill1 = "",
+                            skill2 = "";
                         
                         $("#nav").load("nav.html");
                         $("#footer").load("footer.html");
                         $("#modal_popup").load("modal_popup.html");
                         
                         var skill_type = "";
-
-                        var stamina_fn = function( event, ui ) {
-                            $("div#stamina_base2").html(ui.value);
-                            $("div#stamina_base3").html(Math.round($("div#stamina_base").html() * ui.value));
-                            $("div#total").html(parseInt($("div#stamina_base2").html()) + 
-                                                parseInt($("div#attack_base2").html()) + 
-                                                parseInt($("div#defense_base2").html()) +
-                                                parseInt($("div#luck_base2").html()));
-                                                    
-                            if(skill_type!="") {
-                                $("input[attr=" + skill_type + "]").trigger("click");
-                            }
-                        };
                         
-                        $("div#stamina_event").slider({
+                        var stamina = $("div#stamina_event").slider({
                             max:999,
                             min:1,
                             value:1,
-                            slide:stamina_fn
+                            slide: function( event, ui ) {
+                                set_calculate("stamina_base", ui.value);
+                            }
                         });
-                        
-                        /* test
-                        $("input#stamina_event_des").on("click", function() {
-                            $("div#stamina_event").slider({
-                                value:($("div#stamina_event").slider("value") - 1),
-                                slide:stamina_fn
-                            });
-                        });
-                        
-                        $("input#stamina_event_add").on("click", function() {
-                            $("div#stamina_event").slider("value",($("div#stamina_event").slider("value") + 1));
-                            $("div#stamina_event").trigger("slider");
-                        });*/
-                        
-                        $("div#attack_event").slider({
+
+                        var attack = $("div#attack_event").slider({
                             max:999,
                             min:1,
                             slide: function( event, ui ) {
-                                $("div#attack_base2").html(ui.value);
-                                $("div#attack_base3").html(Math.round($("div#attack_base").html() * ui.value));
+                                set_calculate("attack_base", ui.value);
+                            }
+                        });
+                        
+                        var defense = $("div#defense_event").slider({
+                            max:999,
+                            min:1,
+                            slide: function( event, ui ) {
+                                set_calculate("defense_base", ui.value);
+                            }
+                        });
+                        
+                        var luck = $("div#luck_event").slider({
+                            max:999,
+                            min:1,
+                            slide: function( event, ui ) {
+                                set_calculate("luck_base", ui.value);                              
+                            }
+                        });
+                        
+                        var value_list = {
+                            "s":["stamina_base", stamina],
+                            "a":["attack_base", attack],
+                            "d":["defense_base", defense],
+                            "l":["luck_base", luck], 
+                        };
+                        
+                        $("input.des, .add").on("click", function() {
+                            var val = value_list[$(this).attr("attr")][1].slider('value'),
+                                exec = value_list[$(this).attr("attr")][1],
+                                class_name = value_list[$(this).attr("attr")][0],
+                                class_name2 = $(this).attr("class");
+                                
+                            if(class_name2 == "add") {
+                                val += 1;
+                            } else {
+                                val -= 1;
+                            }
+
+                            exec.slider('value', val);
+                            set_calculate(class_name, val);
+                        });
+
+                        function set_calculate(tag, value) {
+                            $("div#" + tag + "2").html(value);
+                                $("div#" + tag + "3").html(Math.round($("div#" + tag + "").html() * value));
                                 $("div#total").html(parseInt($("div#stamina_base2").html()) + 
                                                     parseInt($("div#attack_base2").html()) + 
                                                     parseInt($("div#defense_base2").html()) +
                                                     parseInt($("div#luck_base2").html()));
                                                     
-                                if(skill_type!="") {
-                                    $("input[attr=" + skill_type + "]").trigger("click");
-                                }
-                            }
-                        });
-                        $("div#defense_event").slider({
-                            max:999,
-                            min:1,
-                            slide: function( event, ui ) {
-                                $("div#defense_base2").html(ui.value);
-                                $("div#defense_base3").html(Math.round($("div#defense_base").html() * ui.value));
-                                $("div#total").html(parseInt($("div#stamina_base2").html()) + 
-                                                    parseInt($("div#attack_base2").html()) + 
-                                                    parseInt($("div#defense_base2").html()) +
-                                                    parseInt($("div#luck_base2").html()));
-                                                    
-                                if(skill_type!="") {
-                                    $("input[attr=" + skill_type + "]").trigger("click");
-                                }                                            
-                            }
-                        });
-                        $("div#luck_event").slider({
-                            max:999,
-                            min:1,
-                            slide: function( event, ui ) {
-                                $("div#luck_base2").html(ui.value);
-                                $("div#luck_base3").html(Math.round($("div#luck_base").html() * ui.value));
-                                $("div#total").html(parseInt($("div#stamina_base2").html()) + 
-                                                    parseInt($("div#attack_base2").html()) + 
-                                                    parseInt($("div#defense_base2").html()) +
-                                                    parseInt($("div#luck_base2").html()));
-                                                    
-                                if(skill_type!="") {
-                                    $("input[attr=" + skill_type + "]").trigger("click");
-                                }                                            
-                            }
-                        });
+                            $("input.enter").trigger("click");
+                        }
+                        
                         
                         //init
                         get_monster_for_select();
 
-                        //event
-                        $("input[attr=single_temptation]").on('click', function() {
-                            var s = parseInt($("div#stamina_base3").html()),
-                                a = parseInt($("div#attack_base3").html());
-                        
-                            $("div#stamina_base4").html(parseInt(s - (s * 0.20)));
-                            $("div#attack_base4").html(parseInt(a + (s * 0.20)));
-                            $("div#defense_base4").html($("div#defense_base3").html());
-                            $("div#luck_base4").html($("div#luck_base3").html());
-
-                            show_status("single_temptation");
-                        });
-
-                        $("input[attr=double_temptation]").on('click', function() {
-                            var s = parseInt($("div#stamina_base3").html()),
-                                a = parseInt($("div#attack_base3").html());
-                        
-                            $("div#stamina_base4").html(parseInt(s - (s * 0.36)));
-                            $("div#attack_base4").html(parseInt(a + (s * 0.36)));
-                            $("div#defense_base4").html($("div#defense_base3").html());
-                            $("div#luck_base4").html($("div#luck_base3").html());
-
-                            show_status("double_temptation");
-                        });
-
-                        $("input[attr=single_dalliance]").on('click', function() {
-                            var s = parseInt($("div#stamina_base3").html()),
-                                a = parseInt($("div#attack_base3").html()),
-                                d = parseInt($("div#defense_base3").html());
-                        
-                            $("div#stamina_base4").html(parseInt(s + (d * 0.20)));
-                            $("div#attack_base4").html(parseInt(a + (d * 0.20)));
-                            $("div#defense_base4").html(parseInt(d - (d * 0.20)));
-                            $("div#luck_base4").html($("div#luck_base3").html());
-
-                            show_status("single_dalliance");
-                        });
-
-                        $("input[attr=double_dalliance]").on('click', function() {
-                            var s = parseInt($("div#stamina_base3").html()),
-                                a = parseInt($("div#attack_base3").html()),
-                                d = parseInt($("div#defense_base3").html());
-                                
-                            $("div#stamina_base4").html(parseInt(s + (d * 0.36)));
-                            $("div#attack_base4").html(parseInt(a + (d * 0.36)));
-                            $("div#defense_base4").html(parseInt(d - (d * 0.36)));
-                            $("div#luck_base4").html($("div#luck_base3").html());
+                        $("input.enter").on('click', function() {
+                            s = parseInt($("div#stamina_base3").html()) || 0,
+                            a = parseInt($("div#attack_base3").html()) || 0,
+                            d = parseInt($("div#defense_base3").html()) || 0;
+                            l = parseInt($("div#luck_base3").html()) || 0;
                             
-                            show_status("double_dalliance");
+                            skill1 = $("#skill1 option:selected").val();
+                            skill2 = $("#skill2 option:selected").val();
+                            list = [skill1, skill2];
+
+                            tmp = [s, a, d, l];
+                            for(var i in list) {
+                                if(list[i] != "") {
+                                    tmp = calculate_core(list[i], tmp[0], tmp[1], tmp[2], tmp[3]);
+                                }
+                            }
+
+                            $("div#stamina_base4").html(tmp[0]);
+                            $("div#attack_base4").html(tmp[1]);
+                            $("div#defense_base4").html(tmp[2]);
+                            $("div#luck_base4").html(tmp[3]);
                         });
 
-                        $("input[attr=test]").on('click', function() {
-                            show_status("");
+                        $("input.clear").on('click', function() {
+                            $("#skill1, #skill2").children().each(function(){
+                                if ($(this).text() == "請選擇") {
+                                    $(this).attr("selected", "true");
+                                }
+                            });
+                            $("div.status .filter-option").html("請選擇");
+                            
+                            s = parseInt($("div#stamina_base3").html()) || 0,
+                            a = parseInt($("div#attack_base3").html()) || 0,
+                            d = parseInt($("div#defense_base3").html()) || 0;
+                            l = parseInt($("div#luck_base3").html()) || 0;
+                            
+                            $("div#stamina_base4").html(s);
+                            $("div#attack_base4").html(a);
+                            $("div#defense_base4").html(d);
+                            $("div#luck_base4").html(l);
+                            
                         });
+                        
+                        function calculate_core(type, s, a, d, l) {
+                            var tmp = [],
+                                exec = {"0":zero, 
+                                        "1":one, 
+                                        "2":two, 
+                                        "3":three};
+                                
+                            tmp = exec[type](s, a, d, l);
+                            return [tmp[0], tmp[1], tmp[2], tmp[3]];
+                        }
+                        
+                        //加護
+                        function zero(s, a, d, l) {
+                            return [parseInt(s * 1.10),
+                                    parseInt(a * 1.10),
+                                    parseInt(d * 1.10),
+                                    l];
+                        }
+                        
+                        //誘惑
+                        function one(s, a, d, l) {
+                            return [parseInt(s - (s * 0.20)), 
+                                    parseInt(a + (s * 0.20)), 
+                                    d, 
+                                    l];
+                        }
+                        
+                        //惡戲
+                        function two(s, a, d, l) {
+                            return [parseInt(s + (d * 0.20)), 
+                                    parseInt(a + (d * 0.20)), 
+                                    parseInt(d - (d * 0.20)), 
+                                    l];
+                        }
+                        
+                        //冥想 15%的防乘6.6倍, l + ??
+                        function three(s, a, d, l) {
+                            return [parseInt(s + ((d * 0.15) * 6.60)), 
+                                    parseInt(a), 
+                                    parseInt(d - (d * 0.15)), 
+                                    l];
+                        }
                         
                         $("select#evolution,#evolution2").change(function() {
                             var data = monster_data(), row = data.list.length, _no = $(this).val(), temp = {"list":[]};
@@ -392,30 +438,6 @@
                         });
                         
                         //function
-                        function show_status(status) {
-                            var show = "";
-                            skill_type = status;
-                            switch(status) {
-                                case "single_temptation":
-                                    show = "單誘惑";
-                                    break;
-                                case "double_temptation":
-                                    show = "雙誘惑";
-                                    break;
-                                case "single_dalliance":
-                                    show = "單惡戲";
-                                    break;
-                                case "double_dalliance":
-                                    show = "雙惡戲";
-                                    break;
-                                case "":
-                                default:
-                                    show = "無";
-                                    break;                    
-                            };
-                            $("div.status").html("status: " + show);
-                        }
-                        
                         function show_class_list(data) {
                             var row = data.list.length, col = 0, img = "", img2 = "", img3 = "";
                             var TableData = "<tr class='danger'><td>名稱</td><td>圖片</td><td>類別</td><td>屬性</td><td>進化前</td><td>進化道具</td><td>體力</td><td>攻擊</td><td>防禦</td><td>幸運</td></tr>";
