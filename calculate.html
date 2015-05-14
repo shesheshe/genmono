@@ -118,17 +118,33 @@
                 <div class="panel-body status"  style="position: relative;">
                     <select class="selectpicker" id="skill1">
                         <option value="">請選擇</option>
-                        <option value="0">加護</option>
-                        <option value="1">誘惑</option>
-                        <option value="2">惡戲</option>
-                        <option value="3">冥想</option>
+                        <option value="加護">加護</option>
+                        <option value="誘惑">誘惑</option>
+                        <option value="惡戲">惡戲</option>
+                        <option value="冥想">冥想</option>
+                        <option value="天運">天運(強化數+5)</option>
+                        <option value="成長">成長</option>
+                        <option value="持久">持久</option>
+                        <option value="強固">強固</option>
+                        <option value="頑固">頑固</option>
+                        <option value="激運">激運</option>
+                        <option value="底力">底力</option>
+                        <option value="鉄壁">鉄壁</option>
                     </select> <br />
                     <select class="selectpicker" id="skill2">
                         <option value="">請選擇</option>
-                        <option value="0">加護</option>
-                        <option value="1">誘惑</option>
-                        <option value="2">惡戲</option>
-                        <option value="3">冥想</option>
+                        <option value="加護">加護</option>
+                        <option value="誘惑">誘惑</option>
+                        <option value="惡戲">惡戲</option>
+                        <option value="冥想">冥想</option>
+                        <option value="天運">天運(強化數+5)</option>
+                        <option value="成長">成長</option>
+                        <option value="持久">持久</option>
+                        <option value="強固">強固</option>
+                        <option value="頑固">頑固</option>
+                        <option value="激運">激運</option>
+                        <option value="底力">底力</option>
+                        <option value="鉄壁">鉄壁</option>
                     </select>
                     <input type="button" class="enter" value="enter"/>
                     <input type="button" class="clear" value="clear"/>
@@ -369,45 +385,34 @@
                         
                         function calculate_core(type, s, a, d, l) {
                             var tmp = [],
-                                exec = {"0":zero, 
-                                        "1":one, 
-                                        "2":two, 
-                                        "3":three};
-                                
-                            tmp = exec[type](s, a, d, l);
+                            tmp = skill_list(type, s, a, d, l);
                             return [tmp[0], tmp[1], tmp[2], tmp[3]];
                         }
                         
-                        //加護
-                        function zero(s, a, d, l) {
-                            return [parseInt(s * 1.10),
-                                    parseInt(a * 1.10),
-                                    parseInt(d * 1.10),
-                                    l];
-                        }
+                        //加護 s a d 加10%
+                        //誘惑 s 20% to a
+                        //惡戲 d 20% to s a
+                        //冥想 d 15%*6.6 to s, l + ??
+                        //天運 l + (強化數 * 5)
                         
-                        //誘惑
-                        function one(s, a, d, l) {
-                            return [parseInt(s - (s * 0.20)), 
-                                    parseInt(a + (s * 0.20)), 
-                                    d, 
-                                    l];
-                        }
+                        function skill_list(skill_name, s, a, d, l) {
                         
-                        //惡戲
-                        function two(s, a, d, l) {
-                            return [parseInt(s + (d * 0.20)), 
-                                    parseInt(a + (d * 0.20)), 
-                                    parseInt(d - (d * 0.20)), 
-                                    l];
-                        }
-                        
-                        //冥想 15%的防乘6.6倍, l + ??
-                        function three(s, a, d, l) {
-                            return [parseInt(s + ((d * 0.15) * 6.60)), 
-                                    parseInt(a), 
-                                    parseInt(d - (d * 0.15)), 
-                                    l];
+                            var skill_lists = {
+                                "加護":[parseInt(s * 1.10), parseInt(a * 1.10), parseInt(d * 1.10), l],
+                                "誘惑":[parseInt(s - (s * 0.20)), parseInt(a + (s * 0.20)), d, l],
+                                "惡戲":[parseInt(s + (d * 0.20)), parseInt(a + (d * 0.20)), parseInt(d - (d * 0.20)), l],
+                                "冥想":[parseInt(s + ((d * 0.15) * 6.60)), parseInt(a), parseInt(d - (d * 0.15)), l],
+                                "天運":[s, a, d, l + (parseInt(Math.random() * 20 + 1) * 5)],
+                                "成長":[s + 3000, a, d, l],
+                                "持久":[parseInt(s + (s * 0.15)), a, d, l],
+                                "強固":[s, a, d + 50, l],
+                                "頑固":[s, a, parseInt(d + (d * 0.10)), l],
+                                "激運":[s, a, d, l + 50],
+                                "底力":[parseInt(s + (s * 0.20)), a, d, l],
+                                "鉄壁":[s, a, parseInt(d + (d * 0.15)), l],
+                            };
+                            
+                            return skill_lists[skill_name];
                         }
                         
                         $("select#evolution,#evolution2").change(function() {
