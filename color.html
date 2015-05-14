@@ -116,25 +116,26 @@
                     $(".ie").append(color[1] + "<br />\n");
                     $(".horizontal").append(color[1] + " " + color[2] + " ");
                     
+                    tmp = "";
                     switch(color[0]) {
                         case "橘色":
-                            color[0] = "桔";
+                            tmp = "桔";
                             break;
                         case "咖啡色":
-                            color[0] = "咖";
+                            tmp = "咖";
                             break;
                         case "米黃色or卡其色":
-                            color[0] = "米";
+                            tmp = "米";
                             break;
                         case "粉紅色":
-                            color[0] = "粉";
+                            tmp = "粉";
                             break;
                         default:
-                            color[0] = color[0].replace(/色/, "");
+                            tmp = color[0].replace(/色/, "");
                             break;
                     }
                     
-                    $(".horizontal2").append(color[3] + " " + color[0] + " ");
+                    $(".horizontal2").append(color[3] + " " + (tmp || color[3]) + " ");
                 }
             });
             
