@@ -92,7 +92,7 @@
                 ["銀","Perak","Silver","perak"],
                 ["玫瑰金","Emas rose","Rose Gold","emas rose","br"],
                 
-                ["情侶","COWOK","man","COWOK 男 CEWEK 女"],
+                ["情侶","COWOK","COWOK man CEWEK woman","COWOK 男 CEWEK 女"],
                 
                 //["男","COWOK","man","COWOK"],
                 //["女","CEWEK","woman","CEWEK"],
@@ -109,12 +109,28 @@
                 if($(this).attr("color")=="情侶") {
                     $(".en").append(color[3] + "<br />\n");
                     $(".ie").append(color[3] + "<br />\n");
-                    $(".horizontal").append(color[3] + " ");
+                    $(".horizontal").append(color[2] + " ");
                     $(".horizontal2").append(color[3] + " ");
                 } else {
                     $(".en").append(color[2] + "<br />\n");
                     $(".ie").append(color[1] + "<br />\n");
                     $(".horizontal").append(color[1] + " " + color[2] + " ");
+                    
+                    switch(color[0]) {
+                        case "橘色":
+                            color[0] = "桔";
+                            break;
+                        case "咖啡色":
+                            color[0] = "咖";
+                            break;
+                        case "米黃色or卡其色":
+                            color[0] = "米";
+                            break;
+                        default:
+                            color[0] = color[0].replace(/色/, "");
+                            break;
+                    }
+                    
                     $(".horizontal2").append(color[3] + " " + color[0] + " ");
                 }
             });
