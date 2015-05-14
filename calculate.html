@@ -116,7 +116,7 @@
                     </h3>
                 </div>
                 <div class="panel-body status"  style="position: relative;">
-                    <select class="selectpicker" id="skill1">
+                    <select class="selectpicker" id="skill1" attr="1">
                         <option value="">請選擇</option>
                         <option value="加護">加護</option>
                         <option value="誘惑">誘惑</option>
@@ -130,8 +130,12 @@
                         <option value="激運">激運</option>
                         <option value="底力">底力</option>
                         <option value="鉄壁">鉄壁</option>
-                    </select> <br />
-                    <select class="selectpicker" id="skill2">
+                        
+                    </select>
+                    <div id="skill1_detail" style="display:inline-block;">*</div>
+                    <br />
+                    <br />
+                    <select class="selectpicker" id="skill2" attr="2">
                         <option value="">請選擇</option>
                         <option value="加護">加護</option>
                         <option value="誘惑">誘惑</option>
@@ -146,6 +150,9 @@
                         <option value="底力">底力</option>
                         <option value="鉄壁">鉄壁</option>
                     </select>
+                    <div id="skill2_detail" style="display:inline-block;">*</div>
+                    <br />
+                    <br />
                     <input type="button" class="enter" value="enter"/>
                     <input type="button" class="clear" value="clear"/>
                 </div>
@@ -381,6 +388,8 @@
                             $("div#defense_base4").html(d);
                             $("div#luck_base4").html(l);
                             
+                            $("div#skill1_detail,#skill2_detail").html("*");
+                            
                         });
                         
                         function calculate_core(type, s, a, d, l) {
@@ -414,6 +423,25 @@
                             
                             return skill_lists[skill_name];
                         }
+                        
+                        $("select#skill1,#skill2").change(function() {
+                            var skill_lists = {
+                                "加護":"討伐開始直後から終了まで、Luck以外のステータスが10%増加する。",
+                                "誘惑":"討伐開始直後から終了まで、Staminaが20%減少する。減少したStamina分、Attackに加算される。",
+                                "惡戲":"討伐開始直後から終了まで、Defenceが20%減少する。減少したDefence分、StaminaとAttackに加算される。",
+                                "冥想":"討伐開始直後から終了まで、Defenceを15%減少させ、その分の数倍をStaminaに加算、Luckも微量に増加。",
+                                "天運":"討伐開始直後から終了まで、強化数に応じたLuckが加算される。Luckの加算値は +0~+100。",
+                                "成長":"討伐開始直後から終了まで、Staminaが300加算される。",
+                                "持久":"討伐開始直後から終了まで、Staminaが15%増加する。",
+                                "強固":"討伐開始直後から終了まで、Defenseが50加算される。",
+                                "頑固":"討伐開始直後から終了まで、Defenseが10%増加する。",
+                                "激運":"討伐開始直後から終了まで、Luckが50加算される。",
+                                "底力":"討伐開始直後から終了まで、Staminaが20%増加する。",
+                                "鉄壁":"討伐開始直後から終了まで、Defenseが15%増加する。",
+                            };
+                            
+                            $("div#skill" + $(this).attr("attr") + "_detail").html(skill_lists[$(this).val()]);
+                        });
                         
                         $("select#evolution,#evolution2").change(function() {
                             var data = monster_data(), row = data.list.length, _no = $(this).val(), temp = {"list":[]};
