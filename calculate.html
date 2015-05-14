@@ -98,10 +98,10 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <select class="selectpicker" id="evolution">
+                    <select class="#" id="evolution">
                         <option value="">請選擇(下位)</option>
                     </select> <font color="#f00" size="4">or</font> 
-                    <select class="selectpicker" id="evolution2">
+                    <select class="#" id="evolution2">
                         <option value="">請選擇(上位)</option>
                     </select>
                     </p>
@@ -445,7 +445,7 @@
                         
                         $("select#evolution,#evolution2").change(function() {
                             var data = monster_data(), row = data.list.length, _no = $(this).val(), temp = {"list":[]};
-console.log(data);
+                            
                             for (var i = 0; i < row; i++) {
                                 if(data.list[i].no == _no) {
                                     temp.list[0] = data.list[i];
@@ -597,7 +597,7 @@ console.log(data);
                         
                         function get_monster_for_select() {
                             var data = monster_data(), row = data.list.length, option = "";
-                            console.log(data);
+
                             for(var i=2; i<row; i++) {
                                 switch(data.list[i].class) {
                                     case "F":
@@ -610,7 +610,7 @@ console.log(data);
                                                   "</option>";
                                 }
                             }
-                            console.log(option);
+
                             $("select#evolution").append(option);
                             option = "";
                             for(var j=2; j<row; j++) {
@@ -624,7 +624,7 @@ console.log(data);
                                                   "</option>";
                                     }
                             }
-                            console.log(option);
+
                             $("select#evolution2").append(option);    
                         }
                         
