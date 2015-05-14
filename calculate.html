@@ -445,7 +445,7 @@
                         
                         $("select#evolution,#evolution2").change(function() {
                             var data = monster_data(), row = data.list.length, _no = $(this).val(), temp = {"list":[]};
-
+console.log(data);
                             for (var i = 0; i < row; i++) {
                                 if(data.list[i].no == _no) {
                                     temp.list[0] = data.list[i];
@@ -597,7 +597,7 @@
                         
                         function get_monster_for_select() {
                             var data = monster_data(), row = data.list.length, option = "";
-                            
+                            console.log(data);
                             for(var i=2; i<row; i++) {
                                 switch(data.list[i].class) {
                                     case "F":
