@@ -564,7 +564,7 @@
                     },
                     xhrFields: {
                         onprogress: function (event) {
-                            if (event.lengthComputable) {
+                           /* if (event.lengthComputable) {
                                 now = (event.loaded / event.total).toFixed(2);
                                 now = Math.floor(now * 100);
                                 //console.log(event.loaded + " / " + event.total);
@@ -573,12 +573,12 @@
                                 .css("width", now + "%");
                                     
                                 $("span.text").html(now + " / 100");
-                            }
+                            }*/
                         }
                     },
                     complete: function(){
-                        $("span.text").html("Loading Done!");
-                        $("div#bar").fadeOut(3000);
+                        /*$("span.text").html("Loading Done!");
+                        $("div#bar").fadeOut(3000);*/
                     }
                 });
             });
