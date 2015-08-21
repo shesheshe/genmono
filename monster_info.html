@@ -165,18 +165,35 @@
                 var data_url = "https://spreadsheets.google.com/feeds/list/1UGovRIUz1Nkhim6NLLRH6Ke675ZS1-wZ6fKMUsEtrrQ/od6/public/values?alt=json";
                 //var data_url = "monster_data.json";
                 
-                $.ajax({
-                    type: 'GET',
-                    url: data_url,
-                    dataType: "json",
-                    cache: false,
-                    error: function (xhr) {
-                        //console.log("error");
-                    },
-                    success: function (response) {
+                var all_data = {};
+                        
+                $.when($.ajax({
+                        type: 'GET',
+                        url: "https://spreadsheets.google.com/feeds/list/1UGovRIUz1Nkhim6NLLRH6Ke675ZS1-wZ6fKMUsEtrrQ/od6/public/values?alt=json",
+                        dataType: "json",
+                        cache: false,
+                        error: function (xhr) {
+                            //console.log("error");
+                        },
+                        success: function (response) {
+                        //console.log(response);
+                            all_data.list = data_x(response);
+                        }}), 
+                       $.ajax({
+                        type: 'GET',
+                        url: "https://spreadsheets.google.com/feeds/list/1UGovRIUz1Nkhim6NLLRH6Ke675ZS1-wZ6fKMUsEtrrQ/2/public/values?alt=json",
+                        dataType: "json",
+                        cache: false,
+                        error: function (xhr) {
+                            //console.log("error");
+                        },
+                        success: function (response) {
+                            all_data.list2 = data_y(response);
+                        }}))
+                .done(function() {
                         //init
                         
-                        var alldata = data_x(response);
+                        var alldata = all_data;
                         
                         show_class_list(select_monster_list("F"));
                         //show_evolution_list(select_evolution_list("3"), 3);
@@ -214,125 +231,6 @@
                         $("li.no").on("click", function() {
                             alert("沒有! 您可以關掉了.");
                         });
-                        
-                        //try
-                        function data_x(row_data) {
-                            row_data_tmp = row_data.feed.entry;
-                            delete row_data;
-                            row_data = row_data_tmp;
-                            var _data = [];
-                            var _datas = {};
-                            for(var row in row_data) {
-                                delete row_data[row].category;
-                                delete row_data[row].content;
-                                delete row_data[row].id;
-                                delete row_data[row].link;
-                                delete row_data[row].title;
-                                delete row_data[row].updated;
-
-                                if(row_data[row].gsx$s.$t != "")
-                                {
-                                    row_data[row].S = row_data[row].gsx$s.$t;
-                                    delete row_data[row].gsx$s;
-                                }
-                                
-                                if(row_data[row].gsx$a.$t != "")
-                                {
-                                    row_data[row].A = row_data[row].gsx$a.$t;
-                                    delete row_data[row].gsx$a;
-                                }
-                                
-                                if(row_data[row].gsx$d.$t != "")
-                                {
-                                    row_data[row].D = row_data[row].gsx$d.$t;
-                                    delete row_data[row].gsx$d;
-                                }
-                                
-                                if(row_data[row].gsx$name.$t != "")
-                                {
-                                    row_data[row].name = row_data[row].gsx$name.$t;
-                                    delete row_data[row].gsx$name;
-                                }
-                                
-                                if(row_data[row].gsx$class.$t != "")
-                                {
-                                    row_data[row].class = row_data[row].gsx$class.$t;
-                                    delete row_data[row].gsx$class;
-                                }
-                                
-                                if(row_data[row].gsx$use.$t != "")
-                                {
-                                    row_data[row].use = row_data[row].gsx$use.$t.slice(0,-1).slice(1).split(",");
-                                    delete row_data[row].gsx$use;
-                                }
-                                
-                                if(row_data[row].gsx$no.$t != "")
-                                {
-                                    row_data[row].no = row_data[row].gsx$no.$t;
-                                    delete row_data[row].gsx$no;
-                                }
-                                
-                                if(row_data[row].gsx$ps.$t != "")
-                                {
-                                    row_data[row].ps = row_data[row].gsx$ps.$t;
-                                    delete row_data[row].gsx$ps;
-                                }
-                                else
-                                {
-                                    delete row_data[row].gsx$ps;
-                                }
-                                
-                                
-                                if(row_data[row].gsx$l.$t != "")
-                                {
-                                    row_data[row].L = row_data[row].gsx$l.$t;
-                                    delete row_data[row].gsx$l;
-                                }
-                                
-                                if(row_data[row].gsx$img.$t != "")
-                                {
-                                    row_data[row].img = row_data[row].gsx$img.$t;
-                                    delete row_data[row].gsx$img;
-                                }
-                                
-                                if(row_data[row].gsx$kind.$t != "")
-                                {
-                                    row_data[row].kind = row_data[row].gsx$kind.$t;
-                                    delete row_data[row].gsx$kind;
-                                }
-                                
-                                if(row_data[row].gsx$previous.$t != "")
-                                {
-                                    if(row_data[row].gsx$previous.$t.slice(0,1) == "[")
-                                    {
-                                        row_data[row].previous = row_data[row].gsx$previous.$t.slice(0,-1).slice(1).split(",");
-                                    } 
-                                    else 
-                                    {
-                                        row_data[row].previous = row_data[row].gsx$previous.$t;
-                                    }
-                                    
-                                    delete row_data[row].gsx$previous;
-                                }
-                                else
-                                {
-                                    row_data[row].previous = row_data[row].gsx$previous.$t;
-                                    delete row_data[row].gsx$previous;
-                                }
-                                
-                                /*var tmp = row_data[row].s;
-                                if(tmp > 40) {
-                                    console.log(row_data[row]);
-                                }*/
-                                
-                                _data[row] = row_data[row];
-                            }
-                            _datas.list = _data;
-                            console.log(_datas);
-                            
-                            return _datas;
-                        }
-                        
                         
                         //function
                         function show_class_list(data) {
@@ -588,7 +486,7 @@
                                     break;
                             }
                             
-                            return new_img_name;
+                            return new_img_name+"-";
                         }
                         
                         function is_limit(target) {
@@ -681,27 +579,180 @@
                         function limit_data() {
                             return ["0111","0137","0139","0140","0141","0142","0143","0144","0145","0146","金色的鱗粉","華的蜜","世界樹的葉","鬼燈的實","精靈的微笑","禁じられた猛毒","破壊王の魂","合成獣の石板", "異種族の石板","量産型増強剤","?","転生の鍵","幻獣の繭"];
                         }
-                        
-                    },
-                    xhrFields: {
-                        onprogress: function (event) {
-                           /* if (event.lengthComputable) {
-                                now = (event.loaded / event.total).toFixed(2);
-                                now = Math.floor(now * 100);
-                                //console.log(event.loaded + " / " + event.total);
-                                $("div.progress-bar")
-                                .attr("aria-valuemax", 100)
-                                .css("width", now + "%");
-                                    
-                                $("span.text").html(now + " / 100");
-                            }*/
-                        }
-                    },
-                    complete: function(){
-                        /*$("span.text").html("Loading Done!");
-                        $("div#bar").fadeOut(3000);*/
-                    }
                 });
+                
+                //try
+                function data_x(row_data) {
+                            row_data_tmp = row_data.feed.entry;
+                            delete row_data;
+                            row_data = row_data_tmp;
+                            var _data = [];
+                            var _datas = {};
+                            for(var row in row_data) {
+                                delete row_data[row].category;
+                                delete row_data[row].content;
+                                delete row_data[row].id;
+                                delete row_data[row].link;
+                                delete row_data[row].title;
+                                delete row_data[row].updated;
+
+                                if(row_data[row].gsx$s.$t != "")
+                                {
+                                    row_data[row].S = row_data[row].gsx$s.$t;
+                                    delete row_data[row].gsx$s;
+                                }
+                                
+                                if(row_data[row].gsx$a.$t != "")
+                                {
+                                    row_data[row].A = row_data[row].gsx$a.$t;
+                                    delete row_data[row].gsx$a;
+                                }
+                                
+                                if(row_data[row].gsx$d.$t != "")
+                                {
+                                    row_data[row].D = row_data[row].gsx$d.$t;
+                                    delete row_data[row].gsx$d;
+                                }
+                                
+                                if(row_data[row].gsx$name.$t != "")
+                                {
+                                    row_data[row].name = row_data[row].gsx$name.$t;
+                                    delete row_data[row].gsx$name;
+                                }
+                                
+                                if(row_data[row].gsx$class.$t != "")
+                                {
+                                    row_data[row].class = row_data[row].gsx$class.$t;
+                                    delete row_data[row].gsx$class;
+                                }
+                                
+                                if(row_data[row].gsx$use.$t != "")
+                                {
+                                    row_data[row].use = row_data[row].gsx$use.$t.slice(0,-1).slice(1).split(",");
+                                    delete row_data[row].gsx$use;
+                                }
+                                
+                                if(row_data[row].gsx$no.$t != "")
+                                {
+                                    row_data[row].no = row_data[row].gsx$no.$t;
+                                    delete row_data[row].gsx$no;
+                                }
+                                
+                                if(row_data[row].gsx$ps.$t != "")
+                                {
+                                    row_data[row].ps = row_data[row].gsx$ps.$t;
+                                    delete row_data[row].gsx$ps;
+                                }
+                                else
+                                {
+                                    delete row_data[row].gsx$ps;
+                                }
+                                
+                                
+                                if(row_data[row].gsx$l.$t != "")
+                                {
+                                    row_data[row].L = row_data[row].gsx$l.$t;
+                                    delete row_data[row].gsx$l;
+                                }
+                                
+                                if(row_data[row].gsx$img.$t != "")
+                                {
+                                    row_data[row].img = row_data[row].gsx$img.$t;
+                                    delete row_data[row].gsx$img;
+                                }
+                                
+                                if(row_data[row].gsx$kind.$t != "")
+                                {
+                                    row_data[row].kind = row_data[row].gsx$kind.$t;
+                                    delete row_data[row].gsx$kind;
+                                }
+                                
+                                if(row_data[row].gsx$previous.$t != "")
+                                {
+                                    if(row_data[row].gsx$previous.$t.slice(0,1) == "[")
+                                    {
+                                        row_data[row].previous = row_data[row].gsx$previous.$t.slice(0,-1).slice(1).split(",");
+                                    } 
+                                    else 
+                                    {
+                                        row_data[row].previous = row_data[row].gsx$previous.$t;
+                                    }
+                                    
+                                    delete row_data[row].gsx$previous;
+                                }
+                                else
+                                {
+                                    row_data[row].previous = row_data[row].gsx$previous.$t;
+                                    delete row_data[row].gsx$previous;
+                                }
+                                
+                                /*var tmp = row_data[row].s;
+                                if(tmp > 40) {
+                                    console.log(row_data[row]);
+                                }*/
+                                
+                                _data[row] = row_data[row];
+                            }
+                            //_datas.list = _data;
+                            //console.log(_datas);
+                            
+                            return _data;
+                        }                
+                
+                function data_y(row_data) {
+                    row_data_tmp = row_data.feed.entry;
+                    delete row_data;
+                    row_data = row_data_tmp;
+                    
+                    var _data = [];
+                    var _datas = {};
+                    for(var row in row_data) {
+                        delete row_data[row].category;
+                        delete row_data[row].content;
+                        delete row_data[row].id;
+                        delete row_data[row].link;
+                        delete row_data[row].title;
+                        delete row_data[row].updated;
+
+                        row_data[row].sss = row_data[row].gsx$sss.$t;
+                        delete row_data[row].gsx$sss;
+                        
+                        row_data[row].ss = row_data[row].gsx$ss.$t;
+                        delete row_data[row].gsx$ss;
+                            
+                        row_data[row].s = row_data[row].gsx$s.$t;
+                        delete row_data[row].gsx$s;
+                        
+                        row_data[row].a = row_data[row].gsx$a.$t;
+                        delete row_data[row].gsx$a;
+                        
+                        row_data[row].b = row_data[row].gsx$b.$t;
+                        delete row_data[row].gsx$b;
+                        
+                        row_data[row].c = row_data[row].gsx$c.$t;
+                        delete row_data[row].gsx$c;
+                        
+                        row_data[row].d = row_data[row].gsx$d.$t;
+                        delete row_data[row].gsx$d;
+                        
+                        row_data[row].e = row_data[row].gsx$e.$t;
+                        delete row_data[row].gsx$e;
+                        
+                        row_data[row].f = row_data[row].gsx$f.$t;
+                        delete row_data[row].gsx$f;
+                        
+                        /*var tmp = row_data[row].s;
+                        if(tmp > 40) {
+                            console.log(row_data[row]);
+                        }*/
+                        
+                        _data[row] = row_data[row];
+                    }
+                    //_datas.list2 = _data;
+                    //console.log(_datas);
+                    return _data;
+                }
+                
             });
         </script>
         <script>
