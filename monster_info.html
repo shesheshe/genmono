@@ -126,6 +126,7 @@
                             <option value="S_top_10">體力前10名</option>
                             <option value="A_top_10">攻擊前10名</option>
                             <option value="D_top_10">防禦前10名</option>
+                            <option value="L_top_10">運氣前10名</option>
                         </select> <font color="#f00" size="4">or</font> 
                         (
                         <select class="selectpicker" id="evolution">
@@ -377,7 +378,7 @@
                                                 no = data.list[i].no;
                                                 noo = data.list[i];
                                             } else {
-                                                if(data.list[i].is_select==0 && data.list[i].S>=s) {
+                                                if(data.list[i].is_select==0 && parseInt(data.list[i].S)>=s) {
                                                     s = data.list[i].S;
                                                     no = data.list[i].no;
                                                     noo = data.list[i];
@@ -396,7 +397,6 @@
                             }
                             
                             if(_class == "A_top_10") {
-                                console.log(data.list);
                                 for(var k=0; k<10; k++)
                                 {
                                     s = 0, no = 0, noo = 0;
@@ -406,7 +406,7 @@
                                                 no = data.list[i].no;
                                                 noo = data.list[i];
                                             } else {
-                                                if(data.list[i].is_select==0 && data.list[i].A>=s) {
+                                                if(data.list[i].is_select==0 && parseInt(data.list[i].A)>=s) {
                                                     s = data.list[i].A;
                                                     no = data.list[i].no;
                                                     noo = data.list[i];
@@ -436,7 +436,7 @@
                                                 no = data.list[i].no;
                                                 noo = data.list[i];
                                             } else {
-                                                if(data.list[i].is_select==0 && data.list[i].D>=s) {
+                                                if(data.list[i].is_select==0 && parseInt(data.list[i].D)>=s) {
                                                     s = data.list[i].D;
                                                     no = data.list[i].no;
                                                     noo = data.list[i];
@@ -454,6 +454,34 @@
                                 return newdata;
                             }
                             
+							if(_class == "L_top_10") {
+                                for(var k=0; k<10; k++)
+                                {
+                                    s = 0, no = 0, noo = 0;
+                                    for(var i=0; i<data.list.length; i++) {
+                                            if(data.list[i].is_select==0 && s==0) {
+                                                s = data.list[i].L;
+                                                no = data.list[i].no;
+                                                noo = data.list[i];
+                                            } else {
+                                                if(data.list[i].is_select==0 && data.list[i].L>=s) {
+                                                    s = data.list[i].L;
+                                                    no = data.list[i].no;
+                                                    noo = data.list[i];
+                                                }
+                                            }
+                                    }
+                                    for(var iii=0; iii<data.list.length; iii++) {
+                                            if(data.list[iii].no == no) {
+                                                data.list[iii].is_select = 1;
+                                            }
+                                    }
+                                    newdata.list[j++] = noo;
+                                }
+                                newdata.list.length = j;
+                                return newdata;
+                            }
+							
                             for(var i=0; i<row; i++) {
                                 if(data.list[i].class == _class) {
                                     newdata.list[j++] = data.list[i];
@@ -697,18 +725,21 @@
                                 if(row_data[row].gsx$s.$t != "")
                                 {
                                     row_data[row].S = parseInt(row_data[row].gsx$s.$t);
+                                    row_data[row].S = row_data[row].gsx$s.$t;
                                     delete row_data[row].gsx$s;
                                 }
                                 
                                 if(row_data[row].gsx$a.$t != "")
                                 {
                                     row_data[row].A = parseInt(row_data[row].gsx$a.$t);
+                                    row_data[row].A = row_data[row].gsx$a.$t;
                                     delete row_data[row].gsx$a;
                                 }
                                 
                                 if(row_data[row].gsx$d.$t != "")
                                 {
                                     row_data[row].D = parseInt(row_data[row].gsx$d.$t);
+                                    row_data[row].D = row_data[row].gsx$d.$t;
                                     delete row_data[row].gsx$d;
                                 }
                                 
@@ -750,6 +781,7 @@
                                 if(row_data[row].gsx$l.$t != "")
                                 {
                                     row_data[row].L = parseInt(row_data[row].gsx$l.$t);
+                                    row_data[row].L = row_data[row].gsx$l.$t;
                                     delete row_data[row].gsx$l;
                                 }
                                 
