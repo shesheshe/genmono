@@ -714,6 +714,7 @@
                             row_data = row_data_tmp;
                             var _data = [];
                             var _datas = {};
+							//console.log(row_data);
                             for(var row in row_data) {
                                 delete row_data[row].category;
                                 delete row_data[row].content;
@@ -836,6 +837,7 @@
                     
                     var _data = [];
                     var _datas = {};
+					//console.log(row_data);
                     for(var row in row_data) {
                         delete row_data[row].category;
                         delete row_data[row].content;
@@ -844,31 +846,31 @@
                         delete row_data[row].title;
                         delete row_data[row].updated;
 
-                        row_data[row].sss = row_data[row].gsx$sss.$t;
+                        row_data[row].sss = row_data[row].gsx$sss.$t.split(",");
                         delete row_data[row].gsx$sss;
                         
-                        row_data[row].ss = row_data[row].gsx$ss.$t;
+                        row_data[row].ss = row_data[row].gsx$ss.$t.split(",");
                         delete row_data[row].gsx$ss;
                             
-                        row_data[row].s = row_data[row].gsx$s.$t;
+                        row_data[row].s = row_data[row].gsx$s.$t.split(",");
                         delete row_data[row].gsx$s;
                         
-                        row_data[row].a = row_data[row].gsx$a.$t;
+                        row_data[row].a = row_data[row].gsx$a.$t.split(",");
                         delete row_data[row].gsx$a;
                         
-                        row_data[row].b = row_data[row].gsx$b.$t;
+                        row_data[row].b = row_data[row].gsx$b.$t.split(",");
                         delete row_data[row].gsx$b;
                         
-                        row_data[row].c = row_data[row].gsx$c.$t;
+                        row_data[row].c = row_data[row].gsx$c.$t.split(",");
                         delete row_data[row].gsx$c;
                         
-                        row_data[row].d = row_data[row].gsx$d.$t;
+                        row_data[row].d = row_data[row].gsx$d.$t.split(",");
                         delete row_data[row].gsx$d;
                         
-                        row_data[row].e = row_data[row].gsx$e.$t;
+                        row_data[row].e = row_data[row].gsx$e.$t.split(",");
                         delete row_data[row].gsx$e;
                         
-                        row_data[row].f = row_data[row].gsx$f.$t;
+                        row_data[row].f = row_data[row].gsx$f.$t.split(",");
                         delete row_data[row].gsx$f;
                         
                         /*var tmp = row_data[row].s;
