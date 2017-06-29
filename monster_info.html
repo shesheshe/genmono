@@ -169,7 +169,7 @@
                 console.log("∑(っ °Д °;)っ init monster_info");
                 var data_url = "https://spreadsheets.google.com/feeds/list/1UGovRIUz1Nkhim6NLLRH6Ke675ZS1-wZ6fKMUsEtrrQ/od6/public/values?alt=json";
                 //var data_url = "monster_data.json";
-                
+                var return_name = '';
                 var all_data = {};
                         
                 $.when($.ajax({
@@ -183,6 +183,7 @@
                         success: function (response) {
                         //console.log(response);
                             all_data.list = data_x(response);
+                            //console.table(all_data.list);
                         }}), 
                        $.ajax({
                         type: 'GET',
@@ -216,6 +217,7 @@
                         //event
                         $("select#class").change(function() {
                             var data = select_monster_list($(this).val());
+                            ga('send', 'event', '分類1', $(this).val(), $(this).val());
                             $("table.table").html("");
                             show_class_list(data);
                         });
@@ -223,12 +225,14 @@
                         $("select#evolution").change(function() {
                             var monster_no = get_monster_for_select($(this).val());
                             var data = select_evolution_list(monster_no);
+                            ga('send', 'event', '進化1', monster_no, return_name);
                             $("table.table").html("");
                             show_evolution_list(data, monster_no);
                         });
                         
                         $("select#evolution2").change(function() {
                             var data = select_evolution_list($(this).val());
+                            ga('send', 'event', '進化2', $(this).val(), $("select#evolution2 option[value=" + $(this).val() + "]").attr('names'));
                             $("table.table").html("");
                             show_evolution_list(data, $(this).val());
                         });
@@ -589,9 +593,10 @@
                                 if(data.list[j].class == _class) {
                                     if(break_flag == 1) {
                                         return_no = data.list[j].no;
+                                        return_name = data.list[j].name;
                                         break_flag++;
                                     }
-                                    option += "<option value='" + data.list[j].no+"'>" + 
+                                    option += "<option value='" + data.list[j].no+"' names='" + data.list[j].name + "'>" + 
                                               data.list[j].class + ". " + data.list[j].name + " (" + data.list[j].use[0] + ")" + 
                                               "</option>";                        
                                 }
